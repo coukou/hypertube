@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+package hypertube.auth;
+
+message Empty {}
+
+message AuthRequest {
+  string username = 1;
+  string password = 2;
+}
+
+message OAuthRequest {
+  string code = 1;
+}
+
+message AuthResponse {
+  string token = 1;
+}
+
+message RegisterRequest {
+  string username = 1;
+  string email = 2;
+  string password = 3;
+  string picture_id = 4;
+}
+
+message ResetRequest {
+  string username = 1;
+}
+
+message ValidateRequest {
+  string token = 1;
+}
+
+message TokenValidRequest {
+  string token = 1;
+}
+
+service AuthService { 
+  rpc Register(RegisterRequest) returns (Empty);
+  rpc Logout(Empty) returns (Empty);
+  rpc Reset(ResetRequest) returns (Empty);
+  rpc Validate(ValidateRequest) returns (Empty);
+
+
+  // Called by other microservice to check JWT token validity
+  rpc TokenIsValid(TokenValidRequest) returns (Empty);
+
+  // this is legacy auth
+  rpc Auth(AuthRequest) returns (AuthResponse);
+
+  // OAuth
+  rpc Oauth42(OAuthRequest) returns (AuthResponse);
+  rpc OauthGithub(OAuthRequest) returns (AuthResponse);
+}
