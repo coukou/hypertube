@@ -1,9 +1,6 @@
 FROM node:alpine
 
-RUN apk update
-RUN apk add python g++ make 
-
-WORKDIR /usr/app/auth-service
+WORKDIR /usr/app/profile-service
 
 COPY ./package.json .
 COPY ./package-lock.json .

@@ -14,6 +14,10 @@ RUN git clone https://github.com/grpc/grpc-web.git /tmp/grpc-web
 RUN make install-plugin
 
 WORKDIR /protos
-COPY . .
-RUN npm install 
 
+RUN npm install grpc-tools 
+RUN npm install protoc-gen-grpc
+
+COPY . .
+
+RUN ./build.sh

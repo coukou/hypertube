@@ -1,0 +1,32 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: ServiceEntry
+metadata:
+  name: 42-api
+spec:
+  hosts:
+  - api.intra.42.fr
+  ports:
+  - number: 443
+    name: https
+    protocol: HTTPS
+  resolution: DNS
+  location: MESH_EXTERNAL
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: 42-api
+spec:
+  hosts:
+  - api.intra.42.fr
+  tls:
+  - match:
+    - port: 443
+      sni_hosts:
+      - api.intra.42.fr
+    route:
+    - destination:
+        host: api.intra.42.fr
+        port:
+          number: 443
+      weight: 100

@@ -1,0 +1,32 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: ServiceEntry
+metadata:
+  name: mailgun-api
+spec:
+  hosts:
+  - api.mailgun.net
+  ports:
+  - number: 443
+    name: https
+    protocol: HTTPS
+  resolution: DNS
+  location: MESH_EXTERNAL
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: mailgun-api
+spec:
+  hosts:
+  - api.mailgun.net
+  tls:
+  - match:
+    - port: 443
+      sni_hosts:
+      - api.mailgun.net
+    route:
+    - destination:
+        host: api.mailgun.net
+        port:
+          number: 443
+      weight: 100

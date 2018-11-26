@@ -1,0 +1,45 @@
+{
+  "err": {
+    "field": {
+      "missing": "is missing",
+      "invalid": "is invalid",
+      "already-taken": "is already taken",
+      "min-4": "must be atleast 4 chars long",
+      "max-16": "can't exceed 16 chars long",
+      "alphanum": "must be only alphanumerical"
+    }
+  },
+  "lang": {
+    "en": "English",
+    "fr": "French"
+  },
+  "page": {
+    "app": {
+      "new": {
+        "title": "Tell us more about you 🕵️"
+      }
+    },
+    "register": {
+      "title": "Register"
+    },
+    "forgotten": {
+      "title": "Really ??? 😱",
+      "desc": "Dont' panic ! Take a ☕. We'll send you a new password"
+    }
+  },
+  "button": {
+    "reset-pass": "Reset password",
+    "auth": "Authenticate",
+    "lets-go": "Lets go! 🎠",
+    "create-account": "Create account"
+  },
+  "retrieving-oauth-info": "Retrieving OAuth informations ...",
+  "back-to-login": "Click here to return to login page",
+  "username": "Username",
+  "email": "Email",
+  "password-conf": "Confirm Password",
+  "password": "Password",
+  "last-name": "Last name",
+  "first-name": "First name",
+  "forgotten-link": "Forgotten password ?"
+}

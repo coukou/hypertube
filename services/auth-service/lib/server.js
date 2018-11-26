@@ -1,17 +1,27 @@
-const http = require('http')
-const redis = require('redis')
-const client = redis.createClient({
-  host: 'auth-redis'
-})
-client.on('error', (err) => {
-  console.log('redis error', err)
-})
-client.on('connect', (err) => {
-  console.log('redis connected')
+const mongoose = require('mongoose')
+const path = require('path')
+const grpc = require('grpc')
+
+const services = require('./services')
+
+// here we try to connect to the auth-mongo
+mongoose.connect('mongodb://user:pass@auth-mongo:27017/auth', {useNewUrlParser: true}).catch(err => {
+  console.log('Unable to connect to auth-mongo:', err)
+  process.exit()
 })
 
-const server = http.createServer((req, res) => {
-  res.writeHead(200)
-  res.end(`served from: ${process.env['MY_POD_IP']}`)
+const server = new grpc.Server()
+
+const pkgDef = require('@grpc/proto-loader').loadSync(path.join(__dirname, '../protos/auth/auth.proto'), {
+  keepCase: true,
+  longs: String,
+  enums: String,
+  defaults: true,
+  oneofs: true
 })
-server.listen(3000, () => console.log('auth-service listenin on :3000'))
+
+const pb = grpc.loadPackageDefinition(pkgDef).hypertube.auth
+server.addService(services.auth.service, services.auth.handlers)
+server.addService(services.internal.service, services.internal.handlers)
+server.bind('127.0.0.1:3000', grpc.ServerCredentials.createInsecure())
+server.start()

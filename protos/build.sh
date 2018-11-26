@@ -1,10 +1,21 @@
 #!/usr/bin/env bash
 
-docker build -t hypertube/proto-builder .
+OUT_DIR=generated/js
 
-mkdir -p generated/js
+GTOOLS=./node_modules/.bin/grpc_tools_node_protoc
+GTOOLS_PLUGIN=./node_modules/.bin/grpc_tools_node_protoc_plugin
 
-docker run -v $(pwd)/generated:/generated hypertube/proto-builder ./node_modules/.bin/grpc_tools_node_protoc auth/auth.proto \
---js_out=import_style=commonjs:/generated/js \
---grpc-web_out=import_style=commonjs,mode=grpcwebtext:/generated/js \
---grpc_out=/generated/js --plugin=./node_modules/.bin/grpc_tools_node_protoc_plugin
+mkdir -p $OUT_DIR
+
+build()
+{
+  FILE=$1
+
+  $GTOOLS $FILE \
+    --js_out=import_style=commonjs:$OUT_DIR \
+    --grpc-web_out=import_style=commonjs,mode=grpcwebtext:$OUT_DIR \
+    --grpc_out=$OUT_DIR --plugin=$GTOOLS_PLUGIN
+}
+
+build auth/auth.proto
+build profile/profile.proto

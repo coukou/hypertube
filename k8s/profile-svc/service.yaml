@@ -1,0 +1,100 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: profile-service
+  labels:
+    app: profile-service
+    tier: service
+spec:
+  ports:
+  # here we expose only your service proxy port
+  - name: grpc-port
+    port: 3000
+    targetPort: 3000
+  selector:
+    app: profile-service
+    tier: service
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: profile-service
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - hypertube-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /hypertube.profile.InternalProfileService
+      gateways:
+      - mesh
+    route:
+    - destination:
+        host: profile-service
+        port:
+          number: 3000
+  - match:
+    - uri:
+        prefix: /hypertube.profile.ProfileService
+    route:
+    - destination:
+        host: profile-service
+        port:
+          number: 3000
+    corsPolicy:
+      allowOrigin:
+        - "*"
+      allowMethods:
+        - POST
+        - GET
+        - OPTIONS
+        - PUT
+        - DELETE
+      allowHeaders:
+        - grpc-timeout
+        - access-token
+        - content-type
+        - keep-alive
+        - user-agent
+        - cache-control
+        - content-type
+        - content-transfer-encoding
+        - custom-header-1
+        - x-accept-content-transfer-encoding
+        - x-accept-response-streaming
+        - x-user-agent
+        - x-grpc-web
+      maxAge: 1728s
+      exposeHeaders:
+        - custom-header-1
+        - grpc-status
+        - grpc-message
+      allowCredentials: true
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: profile-service
+  labels:
+    app: profile-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: profile-service
+      tier: service
+  template:
+    metadata:
+      labels:
+        app: profile-service
+        tier: service
+    spec:
+      containers:
+      - name: profile-service
+        image: hypertube/profile-service
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: grpc-port
+          containerPort: 3000

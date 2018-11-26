@@ -28,7 +28,7 @@ message ResetRequest {
   string username = 1;
 }
 
-message ValidateRequest {
+message ActivateRequest {
   string token = 1;
 }
 
@@ -36,15 +36,28 @@ message TokenValidRequest {
   string token = 1;
 }
 
+message TokenValidResponse {
+  bool valid = 1;
+  string message = 2;
+}
+
+message EditEmailRequest {
+  string email = 1;
+  string password = 2;
+}
+
+service InternalAuthService {
+  // Called by other microservice to check JWT token validity
+  rpc TokenIsValid(TokenValidRequest) returns (TokenValidResponse);
+}
+
 service AuthService { 
   rpc Register(RegisterRequest) returns (Empty);
   rpc Logout(Empty) returns (Empty);
   rpc Reset(ResetRequest) returns (Empty);
-  rpc Validate(ValidateRequest) returns (Empty);
+  rpc Activate(ActivateRequest) returns (Empty);
 
-
-  // Called by other microservice to check JWT token validity
-  rpc TokenIsValid(TokenValidRequest) returns (Empty);
+  rpc EditEmail(EditEmailRequest) returns (Empty);
 
   // this is legacy auth
   rpc Auth(AuthRequest) returns (AuthResponse);
