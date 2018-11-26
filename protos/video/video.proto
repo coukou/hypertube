@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package hypertube.video;
+
+message Empty {}
+
+enum FilmType {
+  ACTION = 0;
+  THRILLER = 1;
+}
+
+message ListRequest {
+  uint64 limit = 1; // max 10
+  uint64 offset = 2;
+  FilmType type = 3;
+}
+
+message ListResponse {
+  string id = 1;
+  string title = 2;
+  FilmType type = 3;
+}
+
+service VideoService {   
+  rpc List(ListRequest) returns (stream ListResponse);
+}
+
+message VideoRequest {
+  string id = 1;
+}
+
+message VideoResponse {
+  string magnet = 1;
+}
+
+service InternalVideoService {
+  rpc Video(VideoRequest) returns (VideoResponse);
+}

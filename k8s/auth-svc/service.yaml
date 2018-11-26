@@ -99,7 +99,7 @@ spec:
         imagePullPolicy: IfNotPresent
         env:
         - name: AUTO_ACTIVATION
-          value: true
+          value: false
         ports:
         - name: grpc-port
           containerPort: 3000

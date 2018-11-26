@@ -25,11 +25,10 @@ export default {
     return unaryCall(authClient[`oauth${type}`].bind(authClient), req);
   },
   register({ username, password, email }) {
-    const req = new pb.RegisterRequest({
-      username: username,
-      password: password,
-      email: email
-    });
+    const req = new pb.RegisterRequest();
+    req.setUsername(username);
+    req.setPassword(password);
+    req.setEmail(email);
     return unaryCall(authClient.register.bind(authClient), req);
   }
 };

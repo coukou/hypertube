@@ -29,7 +29,7 @@ function validate(data) {
       validations.push({field: 'username', message: 'err.field.max-16'})
 
     // username must be only alphanumerical
-    if (/^[a-zA-Z0-9]+$/.test(data.username))
+    if (!/^[a-zA-Z0-9]+$/.test(data.username))
       validations.push({field: 'username', message: 'err.field.alphanum'})
 
     // password validation

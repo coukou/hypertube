@@ -21,7 +21,7 @@ start_minikube()
   if minikube status | grep 'minikube: Running' &>/dev/null ; then
     echo 'Minikube is already started.'
   else
-    minikube start --memory=8192 --cpus=4
+    minikube start --memory=4096 --cpus=4
   fi
 }
 
@@ -30,8 +30,8 @@ download_istio()
   VERSION=$1
   echo "Downloading istio $VERSION"
   cd /tmp
-  wget https://github.com/istio/istio/releases/download/$VERSION/istio-$VERSION-linux.tar.gz &>/dev/null
-  tar -xf istio-$VERSION-linux.tar.gz &>/dev/null
+  curl -L https://github.com/istio/istio/releases/download/$VERSION/istio-$VERSION-linux.tar.gz -o istio.tar.gz
+  tar -xf istio.tar.gz &>/dev/null
 }
 
 install_istio()
