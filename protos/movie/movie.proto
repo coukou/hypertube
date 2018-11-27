@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package hypertube.movie;
+
+message Empty {}
+
+message Movie {
+  string title = 1;
+  string thumbnail = 2;
+  string year = 3;
+  string author = 4;
+  string synopsis = 5;
+  repeated string genres = 6;
+
+  // optional
+  repeated string actors = 7;
+  float ratings = 8;
+}
+
+// External Api
+message ListMovieRequest {
+}
+
+service MovieService {
+  rpc List(ListMovieRequest) returns (Movie);
+}
+
+
+// Internal api
+service InternalMovieService {
+  rpc Add(Movie) returns (Empty);
+}

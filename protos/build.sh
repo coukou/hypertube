@@ -19,3 +19,4 @@ build()
 
 build auth/auth.proto
 build profile/profile.proto
+build movie/movie.proto

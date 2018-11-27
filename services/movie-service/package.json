@@ -1,0 +1,16 @@
+{
+  "name": "movie-service",
+  "version": "1.0.0",
+  "description": "",
+  "keywords": [],
+  "author": "hypertube",
+  "license": "ISC",
+  "dependencies": {
+    "@grpc/proto-loader": "^0.3.0",
+    "await-to-js": "^2.1.1",
+    "google-protobuf": "^3.6.1",
+    "grpc": "^1.16.1",
+    "jwt-decode": "^2.2.0",
+    "mongoose": "^5.3.13"
+  }
+}
