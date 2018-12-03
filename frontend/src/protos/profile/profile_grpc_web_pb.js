@@ -92,7 +92,7 @@ const methodInfo_ProfileService_MyProfile = new grpc.web.AbstractClientBase.Meth
 /**
  * @param {!proto.hypertube.profile.Empty} request The
  *     request proto
- * @param {!Object<string, string>} metadata User defined
+ * @param {?Object<string, string>} metadata User defined
  *     call metadata
  * @param {function(?grpc.web.Error, ?proto.hypertube.profile.MyProfileResponse)}
  *     callback The callback function(error, response)
@@ -104,7 +104,7 @@ proto.hypertube.profile.ProfileServiceClient.prototype.myProfile =
   return this.client_.rpcCall(this.hostname_ +
       '/hypertube.profile.ProfileService/MyProfile',
       request,
-      metadata,
+      metadata || {},
       methodInfo_ProfileService_MyProfile,
       callback);
 };
@@ -113,7 +113,7 @@ proto.hypertube.profile.ProfileServiceClient.prototype.myProfile =
 /**
  * @param {!proto.hypertube.profile.Empty} request The
  *     request proto
- * @param {!Object<string, string>} metadata User defined
+ * @param {?Object<string, string>} metadata User defined
  *     call metadata
  * @return {!Promise<!proto.hypertube.profile.MyProfileResponse>}
  *     The XHR Node Readable Stream
@@ -148,7 +148,7 @@ const methodInfo_ProfileService_Profile = new grpc.web.AbstractClientBase.Method
 /**
  * @param {!proto.hypertube.profile.ProfileRequest} request The
  *     request proto
- * @param {!Object<string, string>} metadata User defined
+ * @param {?Object<string, string>} metadata User defined
  *     call metadata
  * @param {function(?grpc.web.Error, ?proto.hypertube.profile.ProfileResponse)}
  *     callback The callback function(error, response)
@@ -160,7 +160,7 @@ proto.hypertube.profile.ProfileServiceClient.prototype.profile =
   return this.client_.rpcCall(this.hostname_ +
       '/hypertube.profile.ProfileService/Profile',
       request,
-      metadata,
+      metadata || {},
       methodInfo_ProfileService_Profile,
       callback);
 };
@@ -169,7 +169,7 @@ proto.hypertube.profile.ProfileServiceClient.prototype.profile =
 /**
  * @param {!proto.hypertube.profile.ProfileRequest} request The
  *     request proto
- * @param {!Object<string, string>} metadata User defined
+ * @param {?Object<string, string>} metadata User defined
  *     call metadata
  * @return {!Promise<!proto.hypertube.profile.ProfileResponse>}
  *     The XHR Node Readable Stream
@@ -204,7 +204,7 @@ const methodInfo_ProfileService_Edit = new grpc.web.AbstractClientBase.MethodInf
 /**
  * @param {!proto.hypertube.profile.EditRequest} request The
  *     request proto
- * @param {!Object<string, string>} metadata User defined
+ * @param {?Object<string, string>} metadata User defined
  *     call metadata
  * @param {function(?grpc.web.Error, ?proto.hypertube.profile.ProfileResponse)}
  *     callback The callback function(error, response)
@@ -216,7 +216,7 @@ proto.hypertube.profile.ProfileServiceClient.prototype.edit =
   return this.client_.rpcCall(this.hostname_ +
       '/hypertube.profile.ProfileService/Edit',
       request,
-      metadata,
+      metadata || {},
       methodInfo_ProfileService_Edit,
       callback);
 };
@@ -225,7 +225,7 @@ proto.hypertube.profile.ProfileServiceClient.prototype.edit =
 /**
  * @param {!proto.hypertube.profile.EditRequest} request The
  *     request proto
- * @param {!Object<string, string>} metadata User defined
+ * @param {?Object<string, string>} metadata User defined
  *     call metadata
  * @return {!Promise<!proto.hypertube.profile.ProfileResponse>}
  *     The XHR Node Readable Stream
@@ -318,7 +318,7 @@ const methodInfo_InternalProfileService_UpdateAvatar = new grpc.web.AbstractClie
 /**
  * @param {!proto.hypertube.profile.UpdateAvatarRequest} request The
  *     request proto
- * @param {!Object<string, string>} metadata User defined
+ * @param {?Object<string, string>} metadata User defined
  *     call metadata
  * @param {function(?grpc.web.Error, ?proto.hypertube.profile.Empty)}
  *     callback The callback function(error, response)
@@ -330,7 +330,7 @@ proto.hypertube.profile.InternalProfileServiceClient.prototype.updateAvatar =
   return this.client_.rpcCall(this.hostname_ +
       '/hypertube.profile.InternalProfileService/UpdateAvatar',
       request,
-      metadata,
+      metadata || {},
       methodInfo_InternalProfileService_UpdateAvatar,
       callback);
 };
@@ -339,7 +339,7 @@ proto.hypertube.profile.InternalProfileServiceClient.prototype.updateAvatar =
 /**
  * @param {!proto.hypertube.profile.UpdateAvatarRequest} request The
  *     request proto
- * @param {!Object<string, string>} metadata User defined
+ * @param {?Object<string, string>} metadata User defined
  *     call metadata
  * @return {!Promise<!proto.hypertube.profile.Empty>}
  *     The XHR Node Readable Stream
@@ -374,7 +374,7 @@ const methodInfo_InternalProfileService_AuthCreateProfile = new grpc.web.Abstrac
 /**
  * @param {!proto.hypertube.profile.AuthCreateProfileRequest} request The
  *     request proto
- * @param {!Object<string, string>} metadata User defined
+ * @param {?Object<string, string>} metadata User defined
  *     call metadata
  * @param {function(?grpc.web.Error, ?proto.hypertube.profile.Empty)}
  *     callback The callback function(error, response)
@@ -386,7 +386,7 @@ proto.hypertube.profile.InternalProfileServiceClient.prototype.authCreateProfile
   return this.client_.rpcCall(this.hostname_ +
       '/hypertube.profile.InternalProfileService/AuthCreateProfile',
       request,
-      metadata,
+      metadata || {},
       methodInfo_InternalProfileService_AuthCreateProfile,
       callback);
 };
@@ -395,7 +395,7 @@ proto.hypertube.profile.InternalProfileServiceClient.prototype.authCreateProfile
 /**
  * @param {!proto.hypertube.profile.AuthCreateProfileRequest} request The
  *     request proto
- * @param {!Object<string, string>} metadata User defined
+ * @param {?Object<string, string>} metadata User defined
  *     call metadata
  * @return {!Promise<!proto.hypertube.profile.Empty>}
  *     The XHR Node Readable Stream

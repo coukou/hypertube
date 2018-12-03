@@ -1,29 +1,29 @@
 apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
 kind: Deployment
 metadata:
-  name: movie-mongo
+  name: library-mongo
   labels:
-    app: movie-mongo
+    app: library-mongo
 spec:
   selector:
     matchLabels:
-      app: movie-mongo
+      app: library-mongo
       tier: backend
   replicas: 1
   template:
     metadata:
       labels:
-        app: movie-mongo
+        app: library-mongo
         tier: backend
     spec:
       containers:
-      - name: movie-mongo
+      - name: library-mongo
         image: bitnami/mongodb
         ports:
         - containerPort: 27017
         env:
         - name: MONGODB_DATABASE
-          value: 'movie'
+          value: 'library'
         - name: MONGODB_USERNAME
           value: 'user'
         - name: MONGODB_PASSWORD
@@ -33,14 +33,14 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: movie-mongo
+  name: library-mongo
   labels:
-    app: movie-mongo
+    app: library-mongo
     tier: backend
 spec:
   ports:
   - port: 27017
     targetPort: 27017
   selector:
-    app: movie-mongo
+    app: library-mongo
     tier: backend

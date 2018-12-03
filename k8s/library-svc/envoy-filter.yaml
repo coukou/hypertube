@@ -1,10 +1,10 @@
 apiVersion: networking.istio.io/v1alpha3
 kind: EnvoyFilter
 metadata:
-  name: movie-grpc-web-filter
+  name: library-grpc-web-filter
 spec:
   workloadLabels:
-    app: movie-service
+    app: library-service
   filters:
   - listenerMatch:
       listenerType: SIDECAR_INBOUND

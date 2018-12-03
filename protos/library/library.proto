@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+package hypertube.library;
+
+message Empty {}
+
+
+message EpisodeQuality {
+  string quality = 1;
+  string magnet = 2;
+}
+
+message Episode {
+  string num = 1;
+  int64 date = 2;
+  repeated string qualities = 3;
+}
+
+message AnimeAddRequest {
+  string title = 1;
+  string synopsis = 2;
+  string thumbnail = 3;
+  float rating = 4;
+}
+
+message AnimeAddEpisodeRequest {
+  string anime_id = 1;
+  string num = 2;
+  int64 date = 3;
+  repeated EpisodeQuality qualities = 4;
+}
+
+message AnimeSeenRequest {
+  string anime_id = 1;
+  string episode_no = 2;
+}
+
+message AnimeAddResponse {
+  string anime_id = 1;
+}
+
+message Anime {
+  string id = 1;
+  string title = 2;
+  string synopsis = 3;
+  string thumbnail = 4;
+  repeated Episode episodes = 5;
+}
+
+message AnimeListRequest {
+  uint64 offset = 1;
+  uint64 limit = 2;
+}
+
+service LibraryService {
+  rpc AnimeList(AnimeListRequest) returns (stream Anime);
+}
+
+service InternalLibraryService {
+  rpc AddAnime(AnimeAddRequest) returns (AnimeAddResponse);
+  rpc AddAnimeEpisode(AnimeAddEpisodeRequest) returns (Empty);
+}

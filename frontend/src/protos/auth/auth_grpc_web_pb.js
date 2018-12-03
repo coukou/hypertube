@@ -92,7 +92,7 @@ const methodInfo_InternalAuthService_TokenIsValid = new grpc.web.AbstractClientB
 /**
  * @param {!proto.hypertube.auth.TokenValidRequest} request The
  *     request proto
- * @param {!Object<string, string>} metadata User defined
+ * @param {?Object<string, string>} metadata User defined
  *     call metadata
  * @param {function(?grpc.web.Error, ?proto.hypertube.auth.TokenValidResponse)}
  *     callback The callback function(error, response)
@@ -104,7 +104,7 @@ proto.hypertube.auth.InternalAuthServiceClient.prototype.tokenIsValid =
   return this.client_.rpcCall(this.hostname_ +
       '/hypertube.auth.InternalAuthService/TokenIsValid',
       request,
-      metadata,
+      metadata || {},
       methodInfo_InternalAuthService_TokenIsValid,
       callback);
 };
@@ -113,7 +113,7 @@ proto.hypertube.auth.InternalAuthServiceClient.prototype.tokenIsValid =
 /**
  * @param {!proto.hypertube.auth.TokenValidRequest} request The
  *     request proto
- * @param {!Object<string, string>} metadata User defined
+ * @param {?Object<string, string>} metadata User defined
  *     call metadata
  * @return {!Promise<!proto.hypertube.auth.TokenValidResponse>}
  *     The XHR Node Readable Stream
@@ -206,7 +206,7 @@ const methodInfo_AuthService_Register = new grpc.web.AbstractClientBase.MethodIn
 /**
  * @param {!proto.hypertube.auth.RegisterRequest} request The
  *     request proto
- * @param {!Object<string, string>} metadata User defined
+ * @param {?Object<string, string>} metadata User defined
  *     call metadata
  * @param {function(?grpc.web.Error, ?proto.hypertube.auth.Empty)}
  *     callback The callback function(error, response)
@@ -218,7 +218,7 @@ proto.hypertube.auth.AuthServiceClient.prototype.register =
   return this.client_.rpcCall(this.hostname_ +
       '/hypertube.auth.AuthService/Register',
       request,
-      metadata,
+      metadata || {},
       methodInfo_AuthService_Register,
       callback);
 };
@@ -227,7 +227,7 @@ proto.hypertube.auth.AuthServiceClient.prototype.register =
 /**
  * @param {!proto.hypertube.auth.RegisterRequest} request The
  *     request proto
- * @param {!Object<string, string>} metadata User defined
+ * @param {?Object<string, string>} metadata User defined
  *     call metadata
  * @return {!Promise<!proto.hypertube.auth.Empty>}
  *     The XHR Node Readable Stream
@@ -262,7 +262,7 @@ const methodInfo_AuthService_Logout = new grpc.web.AbstractClientBase.MethodInfo
 /**
  * @param {!proto.hypertube.auth.Empty} request The
  *     request proto
- * @param {!Object<string, string>} metadata User defined
+ * @param {?Object<string, string>} metadata User defined
  *     call metadata
  * @param {function(?grpc.web.Error, ?proto.hypertube.auth.Empty)}
  *     callback The callback function(error, response)
@@ -274,7 +274,7 @@ proto.hypertube.auth.AuthServiceClient.prototype.logout =
   return this.client_.rpcCall(this.hostname_ +
       '/hypertube.auth.AuthService/Logout',
       request,
-      metadata,
+      metadata || {},
       methodInfo_AuthService_Logout,
       callback);
 };
@@ -283,7 +283,7 @@ proto.hypertube.auth.AuthServiceClient.prototype.logout =
 /**
  * @param {!proto.hypertube.auth.Empty} request The
  *     request proto
- * @param {!Object<string, string>} metadata User defined
+ * @param {?Object<string, string>} metadata User defined
  *     call metadata
  * @return {!Promise<!proto.hypertube.auth.Empty>}
  *     The XHR Node Readable Stream
@@ -318,7 +318,7 @@ const methodInfo_AuthService_Reset = new grpc.web.AbstractClientBase.MethodInfo(
 /**
  * @param {!proto.hypertube.auth.ResetRequest} request The
  *     request proto
- * @param {!Object<string, string>} metadata User defined
+ * @param {?Object<string, string>} metadata User defined
  *     call metadata
  * @param {function(?grpc.web.Error, ?proto.hypertube.auth.Empty)}
  *     callback The callback function(error, response)
@@ -330,7 +330,7 @@ proto.hypertube.auth.AuthServiceClient.prototype.reset =
   return this.client_.rpcCall(this.hostname_ +
       '/hypertube.auth.AuthService/Reset',
       request,
-      metadata,
+      metadata || {},
       methodInfo_AuthService_Reset,
       callback);
 };
@@ -339,7 +339,7 @@ proto.hypertube.auth.AuthServiceClient.prototype.reset =
 /**
  * @param {!proto.hypertube.auth.ResetRequest} request The
  *     request proto
- * @param {!Object<string, string>} metadata User defined
+ * @param {?Object<string, string>} metadata User defined
  *     call metadata
  * @return {!Promise<!proto.hypertube.auth.Empty>}
  *     The XHR Node Readable Stream
@@ -374,7 +374,7 @@ const methodInfo_AuthService_Activate = new grpc.web.AbstractClientBase.MethodIn
 /**
  * @param {!proto.hypertube.auth.ActivateRequest} request The
  *     request proto
- * @param {!Object<string, string>} metadata User defined
+ * @param {?Object<string, string>} metadata User defined
  *     call metadata
  * @param {function(?grpc.web.Error, ?proto.hypertube.auth.Empty)}
  *     callback The callback function(error, response)
@@ -386,7 +386,7 @@ proto.hypertube.auth.AuthServiceClient.prototype.activate =
   return this.client_.rpcCall(this.hostname_ +
       '/hypertube.auth.AuthService/Activate',
       request,
-      metadata,
+      metadata || {},
       methodInfo_AuthService_Activate,
       callback);
 };
@@ -395,7 +395,7 @@ proto.hypertube.auth.AuthServiceClient.prototype.activate =
 /**
  * @param {!proto.hypertube.auth.ActivateRequest} request The
  *     request proto
- * @param {!Object<string, string>} metadata User defined
+ * @param {?Object<string, string>} metadata User defined
  *     call metadata
  * @return {!Promise<!proto.hypertube.auth.Empty>}
  *     The XHR Node Readable Stream
@@ -430,7 +430,7 @@ const methodInfo_AuthService_EditEmail = new grpc.web.AbstractClientBase.MethodI
 /**
  * @param {!proto.hypertube.auth.EditEmailRequest} request The
  *     request proto
- * @param {!Object<string, string>} metadata User defined
+ * @param {?Object<string, string>} metadata User defined
  *     call metadata
  * @param {function(?grpc.web.Error, ?proto.hypertube.auth.Empty)}
  *     callback The callback function(error, response)
@@ -442,7 +442,7 @@ proto.hypertube.auth.AuthServiceClient.prototype.editEmail =
   return this.client_.rpcCall(this.hostname_ +
       '/hypertube.auth.AuthService/EditEmail',
       request,
-      metadata,
+      metadata || {},
       methodInfo_AuthService_EditEmail,
       callback);
 };
@@ -451,7 +451,7 @@ proto.hypertube.auth.AuthServiceClient.prototype.editEmail =
 /**
  * @param {!proto.hypertube.auth.EditEmailRequest} request The
  *     request proto
- * @param {!Object<string, string>} metadata User defined
+ * @param {?Object<string, string>} metadata User defined
  *     call metadata
  * @return {!Promise<!proto.hypertube.auth.Empty>}
  *     The XHR Node Readable Stream
@@ -486,7 +486,7 @@ const methodInfo_AuthService_Auth = new grpc.web.AbstractClientBase.MethodInfo(
 /**
  * @param {!proto.hypertube.auth.AuthRequest} request The
  *     request proto
- * @param {!Object<string, string>} metadata User defined
+ * @param {?Object<string, string>} metadata User defined
  *     call metadata
  * @param {function(?grpc.web.Error, ?proto.hypertube.auth.AuthResponse)}
  *     callback The callback function(error, response)
@@ -498,7 +498,7 @@ proto.hypertube.auth.AuthServiceClient.prototype.auth =
   return this.client_.rpcCall(this.hostname_ +
       '/hypertube.auth.AuthService/Auth',
       request,
-      metadata,
+      metadata || {},
       methodInfo_AuthService_Auth,
       callback);
 };
@@ -507,7 +507,7 @@ proto.hypertube.auth.AuthServiceClient.prototype.auth =
 /**
  * @param {!proto.hypertube.auth.AuthRequest} request The
  *     request proto
- * @param {!Object<string, string>} metadata User defined
+ * @param {?Object<string, string>} metadata User defined
  *     call metadata
  * @return {!Promise<!proto.hypertube.auth.AuthResponse>}
  *     The XHR Node Readable Stream
@@ -542,7 +542,7 @@ const methodInfo_AuthService_Oauth42 = new grpc.web.AbstractClientBase.MethodInf
 /**
  * @param {!proto.hypertube.auth.OAuthRequest} request The
  *     request proto
- * @param {!Object<string, string>} metadata User defined
+ * @param {?Object<string, string>} metadata User defined
  *     call metadata
  * @param {function(?grpc.web.Error, ?proto.hypertube.auth.AuthResponse)}
  *     callback The callback function(error, response)
@@ -554,7 +554,7 @@ proto.hypertube.auth.AuthServiceClient.prototype.oauth42 =
   return this.client_.rpcCall(this.hostname_ +
       '/hypertube.auth.AuthService/Oauth42',
       request,
-      metadata,
+      metadata || {},
       methodInfo_AuthService_Oauth42,
       callback);
 };
@@ -563,7 +563,7 @@ proto.hypertube.auth.AuthServiceClient.prototype.oauth42 =
 /**
  * @param {!proto.hypertube.auth.OAuthRequest} request The
  *     request proto
- * @param {!Object<string, string>} metadata User defined
+ * @param {?Object<string, string>} metadata User defined
  *     call metadata
  * @return {!Promise<!proto.hypertube.auth.AuthResponse>}
  *     The XHR Node Readable Stream
@@ -598,7 +598,7 @@ const methodInfo_AuthService_OauthGithub = new grpc.web.AbstractClientBase.Metho
 /**
  * @param {!proto.hypertube.auth.OAuthRequest} request The
  *     request proto
- * @param {!Object<string, string>} metadata User defined
+ * @param {?Object<string, string>} metadata User defined
  *     call metadata
  * @param {function(?grpc.web.Error, ?proto.hypertube.auth.AuthResponse)}
  *     callback The callback function(error, response)
@@ -610,7 +610,7 @@ proto.hypertube.auth.AuthServiceClient.prototype.oauthGithub =
   return this.client_.rpcCall(this.hostname_ +
       '/hypertube.auth.AuthService/OauthGithub',
       request,
-      metadata,
+      metadata || {},
       methodInfo_AuthService_OauthGithub,
       callback);
 };
@@ -619,7 +619,7 @@ proto.hypertube.auth.AuthServiceClient.prototype.oauthGithub =
 /**
  * @param {!proto.hypertube.auth.OAuthRequest} request The
  *     request proto
- * @param {!Object<string, string>} metadata User defined
+ * @param {?Object<string, string>} metadata User defined
  *     call metadata
  * @return {!Promise<!proto.hypertube.auth.AuthResponse>}
  *     The XHR Node Readable Stream

@@ -1,6 +1,6 @@
 FROM node:alpine
 
-WORKDIR /usr/app/movie-service
+WORKDIR /usr/app/library-service
 
 COPY ./package.json .
 COPY ./package-lock.json .

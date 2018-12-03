@@ -1,46 +1,45 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: movie-service
+  name: library-service
   labels:
-    app: movie-service
+    app: library-service
     tier: service
 spec:
   ports:
-  # here we expose only your service proxy port
   - name: grpc-port
     port: 3000
     targetPort: 3000
   selector:
-    app: movie-service
+    app: library-service
     tier: service
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
-  name: movie-service
+  name: library-service
 spec:
   hosts:
   - "*"
   gateways:
   - hypertube-gateway
   http:
+  #- match:
+    #- uri:
+        #prefix: /hypertube.library.InternalLibraryService
+      #gateways:
+      #- mesh
+    #route:
+    #- destination:
+        #host: library-service
+        #port:
+          #number: 3000
   - match:
     - uri:
-        prefix: /hypertube.movie.InternalMovieService
-      gateways:
-      - mesh
+        prefix: /hypertube.library
     route:
     - destination:
-        host: movie-service
-        port:
-          number: 3000
-  - match:
-    - uri:
-        prefix: /hypertube.movie.MovieService
-    route:
-    - destination:
-        host: movie-service
+        host: library-service
         port:
           number: 3000
     corsPolicy:
@@ -76,24 +75,24 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: movie-service
+  name: library-service
   labels:
-    app: movie-service
+    app: library-service
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: movie-service
+      app: library-service
       tier: service
   template:
     metadata:
       labels:
-        app: movie-service
+        app: library-service
         tier: service
     spec:
       containers:
-      - name: movie-service
-        image: hypertube/movie-service
+      - name: library-service
+        image: hypertube/library-service
         imagePullPolicy: IfNotPresent
         ports:
         - name: grpc-port
