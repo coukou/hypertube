@@ -24,17 +24,40 @@
       </div>
     </div>
     <div>
-      <router-view></router-view>
+      <transition-group name="fade" mode="out-in">
+        <div class="card" v-for="anime of animes" :key="anime.id">
+          <h1>{{anime.title}}</h1>
+          <div class="card-thumb" :style="`background-image: url('${anime.thumbnail}')`"></div>
+        </div>
+      </transition-group>
     </div>
   </div>
 </template>
 
 <script>
+import LibraryService from "@/services/library";
 export default {
+  data() {
+    return {
+      animes: []
+    };
+  },
   methods: {
     toggleMenu() {
       this.$refs.menu.open();
+    },
+    fetchAnimes(offset, limit) {
+      let retrieved = 0;
+      LibraryService.getAnimes({ offset, limit }, anime => {
+        setTimeout(() => this.animes.push(anime), 200);
+        if (++retrieved === limit) {
+          setTimeout(() => this.fetchAnimes(offset + limit, limit), 100);
+        }
+      });
     }
+  },
+  mounted() {
+    this.fetchAnimes(0, 10);
   }
 };
 </script>
@@ -53,5 +76,21 @@ export default {
   letter-spacing: 2px;
   font-weight: bold;
   text-transform: uppercase;
+}
+.card {
+  display: inline-flex;
+  flex-direction: column;
+  width: 300px;
+}
+.card-thumb {
+  height: 300px;
+  width: 200px;
+  margin: auto;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+.card > h1 {
+  font-size: 20px;
+  text-align: center;
 }
 </style>

@@ -12,8 +12,7 @@ module.exports.getAnimeEpisodes = (id) => {
           return resolve(episodes)
         const $ = cheerio.load(res.data)
         jsonframe($)
-        episodes = episodes.concat(
-          $('body').scrape({
+        episodes = episodes.concat($('body').scrape({
             episodes: {
               _s: '.rls-info-container',
               _d: [{
@@ -28,12 +27,12 @@ module.exports.getAnimeEpisodes = (id) => {
                 }
               }]
             }
-          }).episodes
-        )
+        }).episodes, episodes)
       } catch (err) {
         console.log(`getEpisodeError:${id}:${err}`)
+      } finally {
+        getEpisodes(page+1)
       }
-      getEpisodes(page+1)
     }
     getEpisodes(0)
   })

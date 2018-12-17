@@ -34,7 +34,7 @@ module.exports.getFilm = (id) => {
           cast: movie.cast,
           torrents: movie.torrents.map(torrent => ({
             quality: torrent.quality,
-            magnet: createMagnetLink(movie.title, torrent.hash)
+            torrent: createMagnetLink(movie.title, torrent.hash)
           }))
         })
       })

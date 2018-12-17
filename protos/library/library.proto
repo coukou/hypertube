@@ -4,7 +4,6 @@ package hypertube.library;
 
 message Empty {}
 
-
 message EpisodeQuality {
   string quality = 1;
   string magnet = 2;
@@ -52,6 +51,14 @@ message AnimeListRequest {
   uint64 limit = 2;
 }
 
+message GetTorrentRequest {
+  string id = 1;
+}
+
+message GetTorrentResponse {
+  string magnet = 1;
+}
+
 service LibraryService {
   rpc AnimeList(AnimeListRequest) returns (stream Anime);
 }
@@ -59,4 +66,6 @@ service LibraryService {
 service InternalLibraryService {
   rpc AddAnime(AnimeAddRequest) returns (AnimeAddResponse);
   rpc AddAnimeEpisode(AnimeAddEpisodeRequest) returns (Empty);
+  rpc GetAnimeTorrent(GetTorrentRequest) returns (GetTorrentResponse);
+  rpc GetMovieTorrent(GetTorrentRequest) returns (GetTorrentResponse);
 }

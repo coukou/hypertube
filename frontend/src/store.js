@@ -13,6 +13,10 @@ function initialState() {
   return {
     accessToken: cookies.get("access-token"),
     restored: false,
+    movies: {
+      animes: [],
+      films: []
+    },
     profile: {
       lastName: undefined,
       firstName: undefined,
@@ -33,6 +37,10 @@ export default new Vuex.Store({
     setRestored: (state, v) => {
       state.restored = v;
     },
+    addAnime: (state, anime) => {
+      if (state.movies.animes.findIndex(a => a.id === anime.id) >= 0) return;
+      state.movies.animes.push(anime);
+    },
     setProfile: (state, profile) => {
       for (let k in profile) state.profile[k] = profile[k];
     },
@@ -49,7 +57,14 @@ export default new Vuex.Store({
       router.push("/");
     }
   },
-  getters: {},
+  getters: {
+    animes: state => {
+      return state.movies.animes;
+    },
+    animeById: state => id => {
+      return state.movies.animes.find(a => a.id === id);
+    }
+  },
   actions: {
     restore: store => {
       return new Promise(resolve => {

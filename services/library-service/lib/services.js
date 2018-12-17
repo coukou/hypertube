@@ -24,7 +24,9 @@ module.exports = {
     service: pb.InternalLibraryService.service,
     handlers: {
       addAnime: require('./handlers/internal/add-anime'),
-      addAnimeEpisode: require('./handlers/internal/add-anime-episode')
+      addAnimeEpisode: require('./handlers/internal/add-anime-episode'),
+      getAnimeTorrent: require('./handlers/internal/get-anime-torrent'),
+      //getMovieTorrent: require('./handlers/internal/get-movie-torrent')
     }
   }
 }

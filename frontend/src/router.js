@@ -41,6 +41,20 @@ const router = new Router({
     {
       path: "/app",
       name: "ht-app",
+      children: [
+        {
+          path: "/",
+          name: "ht-app-movie-list",
+          component: () =>
+            import(/* webpackChunkName: "ht-app-movie-list" */ "./views/AppMovieList.vue")
+        },
+        {
+          path: "anime/:id",
+          name: "ht-app-anime",
+          component: () =>
+            import(/* webpackChunkName: "ht-app-anime" */ "./views/AppAnime.vue")
+        }
+      ],
       component: () =>
         import(/* webpackChunkName: "ht-app" */ "./views/App.vue")
     },
