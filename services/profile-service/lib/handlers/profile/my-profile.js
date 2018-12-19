@@ -6,7 +6,7 @@ const Profile = require('../../models/profile')
 module.exports = async (call, cb) => {
   const uid = call.request.jwt._id
   if (!uid)
-    return cb({code: grpc.status.INVALID_ARGUMENT, message: 'invalid params'})
+    return cb({code: grpc.status.INVALID_ARGUMENT, message: 'err.invalid_params'})
   var [err, profile] = await to(Profile.findOne({uid}))
   if (err)
     return cb({code: grpc.status.INTERNAL, message: 'unable to retrieve profile'})

@@ -40,7 +40,8 @@ const router = new Router({
     },
     {
       path: "/app",
-      name: "ht-app",
+      component: () =>
+        import(/* webpackChunkName: "ht-app" */ "./views/App.vue"),
       children: [
         {
           path: "/",
@@ -49,14 +50,24 @@ const router = new Router({
             import(/* webpackChunkName: "ht-app-movie-list" */ "./views/AppMovieList.vue")
         },
         {
+          path: "account",
+          name: "ht-app-account",
+          component: () =>
+            import(/* webpackChunkName: "ht-app-account" */ "./views/Account.vue")
+        },
+        {
+          path: "profile/:id",
+          name: "ht-app-profile",
+          component: () =>
+            import(/* webpackChunkName: "ht-app-profile" */ "./views/Profile.vue")
+        },
+        {
           path: "anime/:id",
           name: "ht-app-anime",
           component: () =>
             import(/* webpackChunkName: "ht-app-anime" */ "./views/AppAnime.vue")
         }
-      ],
-      component: () =>
-        import(/* webpackChunkName: "ht-app" */ "./views/App.vue")
+      ]
     },
     {
       path: "/app/new",

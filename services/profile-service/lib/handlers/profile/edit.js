@@ -10,20 +10,20 @@ const validate = (data) => {
   const errors = []
   
   if (!data.first_name || isEmpty(data.first_name))
-    errors.push({field: 'firstName', message: 'is missing'})
+    errors.push({field: 'firstName', message: 'err.field.missing'})
 
   if (!data.last_name || isEmpty(data.last_name))
-    errors.push({field: 'lastName', message: 'is missing'})
+    errors.push({field: 'lastName', message: 'err.field.missing'})
 
   // if we got errors here no need to check special chars
   if (errors.length > 0)
     return errors
 
   if (!isAlpha(data.first_name))
-    errors.push({field: 'firstName', message: 'must contain only alphabetic characters'})
+    errors.push({field: 'firstName', message: 'err.field.alphanum'})
 
   if (!isAlpha(data.last_name))
-    errors.push({field: 'lastName', message: 'must contain only alphabetic characters'})
+    errors.push({field: 'lastName', message: 'err.field.alphanum'})
   
   // TODO: should check length ?
   return errors

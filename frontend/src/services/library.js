@@ -14,6 +14,16 @@ const createMetadata = () => {
   };
 };
 
+const unaryCall = (method, req) => {
+  return new Promise((resolve, reject) => {
+    method(req, {}, (err, data) => {
+      if (!err) return resolve(data);
+      if (err.code === 3) return console.log(err); // TODO: server validation errors
+      reject(err);
+    });
+  });
+};
+
 export default {
   getAnimes(opts, cb) {
     const req = new pb.AnimeListRequest();
@@ -22,5 +32,10 @@ export default {
     libraryClient.animeList(req, createMetadata()).on("data", anime => {
       cb(anime.toObject());
     });
+  },
+  getAnime(id) {
+    const req = new pb.AnimeRequest();
+    req.setId(id);
+    return unaryCall(libraryClient.getAnime.bind(libraryClient), req);
   }
 };

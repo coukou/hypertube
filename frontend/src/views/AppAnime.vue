@@ -1,29 +1,41 @@
 <template>
-  <div>
+  <div v-if="anime">
     <h1 class="title">{{ anime.title }}</h1>
     <div>thumbnail</div>
     <span class="synopsis">{{ anime.synopsis }}</span>
     <div v-for="episode of episodes" :key="episode.num">
       {{ episode.num }}
+      <div v-for="q of episode.qualitiesList" :key="q.quality">
+        <span>{{ q }}</span>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import LibraryService from "@/services/library";
 export default {
+  created() {
+    this.fetchAnime(this.$route.params.id);
+  },
   data() {
     return {
-      anime: this.$store.getters.animeById(this.$route.params.id)
+      anime: undefined
     };
   },
+  methods: {
+    fetchAnime(id) {
+      LibraryService.getAnime(id).then(
+        anime => (this.anime = anime.toObject())
+      );
+    }
+  },
   computed: {
-    /*anime() {
-      return this.$store.getters.animeById(this.$route.params.id);
-    },*/
     episodes() {
+      console.log(this.anime.episodesList);
       return this.anime.episodesList
         .slice()
-        .sort((a, b) => parseInt(a.num, 10) > parseInt(b.num, 10));
+        .sort((a, b) => parseInt(a.num) - parseInt(b.num));
     }
   }
 };

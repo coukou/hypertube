@@ -3,5 +3,5 @@
 kubectl delete -f k8s/auth-svc/service.yaml
 kubectl apply -f <(istioctl kube-inject -f k8s/auth-svc/service.yaml)
 
-kubectl delete -f k8s/profile-svc/service.yaml
-kubectl apply -f <(istioctl kube-inject -f k8s/profile-svc/service.yaml)
+#kubectl delete -f k8s/profile-svc/service.yaml
+#kubectl apply -f <(istioctl kube-inject -f k8s/profile-svc/service.yaml)

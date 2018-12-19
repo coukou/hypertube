@@ -10,10 +10,10 @@ module.exports = async (call, cb) => {
   if (err) return cb(null)
 
   var [err, t] = await to(RevokedToken.findOne({token}))
-  if (err) return cb({code: grpc.status.INTERNAL, message: 'unable to revoke your token please retry #1'})
+  if (err) return cb({code: grpc.status.INTERNAL, message: 'err.internal.unable_to_revoke_token'})
   if (t) return cb(null)
 
   var [err] = await to((new RevokedToken({token})).save())
-  if (err) return cb({code: grpc.status.INTERNAL, message: 'unable to revoke your token please retry #2'})
+  if (err) return cb({code: grpc.status.INTERNAL, message: 'err.internal.unable_to_revoke_token'})
   return cb(null)
 }

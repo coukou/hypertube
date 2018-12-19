@@ -52,7 +52,7 @@ module.exports = async (call, cb) => {
   if (err) return cb({code: grpc.status.INTERNAL, message: 'unable to check if user already exists'})
 
   if (user && user.auth !== '42')
-    return cb({code: grpc.status.PERMISSION_DENIED, message: `${user.email} associated with ${user.auth} auth`})
+    return cb({code: grpc.status.PERMISSION_DENIED, message: `err.oauth.email_associated_with`}) // TODO: Variables
 
   // if user doenst exist we create it
   if (!user) {

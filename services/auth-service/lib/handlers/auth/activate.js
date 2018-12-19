@@ -10,7 +10,7 @@ module.exports = async (call, cb) => {
   if (err) return cb({code: grpc.status.INTERNAL, message: `ActivationToken.findOneAndDelete err: ${err}`})
   
   if (token === null)
-    return cb({code: grpc.status.INVALID_ARGUMENT, message: 'Validation token is prolly already used / invalid'})
+    return cb({code: grpc.status.INVALID_ARGUMENT, message: 'err.activation.token_invalid'})
   
   var [err] = await to(token.user.update({activated: true}))
   if (err) return cb({code: grpc.status.INTERNAL, message: `User.update err: ${err}`})

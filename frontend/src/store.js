@@ -9,6 +9,12 @@ import profileService from "./services/profile";
 
 Vue.use(Vuex);
 
+function parseJWT(token) {
+  let base64Url = token.split(".")[1];
+  let base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+  return JSON.parse(window.atob(base64));
+}
+
 function initialState() {
   return {
     accessToken: cookies.get("access-token"),
@@ -58,6 +64,15 @@ export default new Vuex.Store({
     }
   },
   getters: {
+    account: state => {
+      if (!state.accessToken) return;
+      const data = parseJWT(state.accessToken);
+      return {
+        id: data._id,
+        username: data.username,
+        email: data.email
+      };
+    },
     animes: state => {
       return state.movies.animes;
     },

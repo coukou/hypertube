@@ -14,7 +14,7 @@
           <n3-button>
             <n3-icon type="search"></n3-icon>
           </n3-button>
-          <n3-button>
+          <n3-button @click.native="$router.push('/app/account')">
             <n3-icon type="cog"></n3-icon>
           </n3-button>
           <n3-button @click.native="$store.commit('logout')">

@@ -17,6 +17,7 @@ module.exports = {
   library: {
     service: pb.LibraryService.service,
     handlers: {
+      getAnime: require('./handlers/library/get-anime'),
       animeList: require('./handlers/library/anime-list'),
     }
   },

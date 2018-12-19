@@ -59,6 +59,17 @@ function deserialize_hypertube_library_AnimeListRequest(buffer_arg) {
   return library_library_pb.AnimeListRequest.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
+function serialize_hypertube_library_AnimeRequest(arg) {
+  if (!(arg instanceof library_library_pb.AnimeRequest)) {
+    throw new Error('Expected argument of type hypertube.library.AnimeRequest');
+  }
+  return new Buffer(arg.serializeBinary());
+}
+
+function deserialize_hypertube_library_AnimeRequest(buffer_arg) {
+  return library_library_pb.AnimeRequest.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
 function serialize_hypertube_library_Empty(arg) {
   if (!(arg instanceof library_library_pb.Empty)) {
     throw new Error('Expected argument of type hypertube.library.Empty');
@@ -70,8 +81,41 @@ function deserialize_hypertube_library_Empty(buffer_arg) {
   return library_library_pb.Empty.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
+function serialize_hypertube_library_GetTorrentRequest(arg) {
+  if (!(arg instanceof library_library_pb.GetTorrentRequest)) {
+    throw new Error('Expected argument of type hypertube.library.GetTorrentRequest');
+  }
+  return new Buffer(arg.serializeBinary());
+}
+
+function deserialize_hypertube_library_GetTorrentRequest(buffer_arg) {
+  return library_library_pb.GetTorrentRequest.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_hypertube_library_GetTorrentResponse(arg) {
+  if (!(arg instanceof library_library_pb.GetTorrentResponse)) {
+    throw new Error('Expected argument of type hypertube.library.GetTorrentResponse');
+  }
+  return new Buffer(arg.serializeBinary());
+}
+
+function deserialize_hypertube_library_GetTorrentResponse(buffer_arg) {
+  return library_library_pb.GetTorrentResponse.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
 
 var LibraryServiceService = exports.LibraryServiceService = {
+  getAnime: {
+    path: '/hypertube.library.LibraryService/GetAnime',
+    requestStream: false,
+    responseStream: false,
+    requestType: library_library_pb.AnimeRequest,
+    responseType: library_library_pb.Anime,
+    requestSerialize: serialize_hypertube_library_AnimeRequest,
+    requestDeserialize: deserialize_hypertube_library_AnimeRequest,
+    responseSerialize: serialize_hypertube_library_Anime,
+    responseDeserialize: deserialize_hypertube_library_Anime,
+  },
   animeList: {
     path: '/hypertube.library.LibraryService/AnimeList',
     requestStream: false,
@@ -108,6 +152,28 @@ var InternalLibraryServiceService = exports.InternalLibraryServiceService = {
     requestDeserialize: deserialize_hypertube_library_AnimeAddEpisodeRequest,
     responseSerialize: serialize_hypertube_library_Empty,
     responseDeserialize: deserialize_hypertube_library_Empty,
+  },
+  getAnimeTorrent: {
+    path: '/hypertube.library.InternalLibraryService/GetAnimeTorrent',
+    requestStream: false,
+    responseStream: false,
+    requestType: library_library_pb.GetTorrentRequest,
+    responseType: library_library_pb.GetTorrentResponse,
+    requestSerialize: serialize_hypertube_library_GetTorrentRequest,
+    requestDeserialize: deserialize_hypertube_library_GetTorrentRequest,
+    responseSerialize: serialize_hypertube_library_GetTorrentResponse,
+    responseDeserialize: deserialize_hypertube_library_GetTorrentResponse,
+  },
+  getMovieTorrent: {
+    path: '/hypertube.library.InternalLibraryService/GetMovieTorrent',
+    requestStream: false,
+    responseStream: false,
+    requestType: library_library_pb.GetTorrentRequest,
+    responseType: library_library_pb.GetTorrentResponse,
+    requestSerialize: serialize_hypertube_library_GetTorrentRequest,
+    requestDeserialize: deserialize_hypertube_library_GetTorrentRequest,
+    responseSerialize: serialize_hypertube_library_GetTorrentResponse,
+    responseDeserialize: deserialize_hypertube_library_GetTorrentResponse,
   },
 };
 

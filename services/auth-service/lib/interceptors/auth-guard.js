@@ -9,10 +9,10 @@ module.exports = (next) => {
   return async (call, cb) => {
     const [ token ] = call.metadata.get('access-token')
     if (!token)
-      return cb({code: grpc.status.PERMISSION_DENIED, message: 'metadata[access-token] is missing'})
+      return cb({code: grpc.status.PERMISSION_DENIED, message: 'err.auth.access_missing'})
     var [err, res] = await to(jwt.isValid(token))
     if (err) return cb({code: grpc.status.INTERNAL, message: 'unable to check access-token'})
-    if (!res.valid) return cb({code: grpc.status.PERMISSION_DENIED, message: 'access-token invalid / revoked'})
+    if (!res.valid) return cb({code: grpc.status.PERMISSION_DENIED, message: 'err.auth.access_invalid'})
 
     call.request.jwt = jwtDecode(token)
     next(call, cb)
