@@ -12,31 +12,31 @@
       "not_found": "Profile doesnt exists"
     },
     "auth": {
-      "access_invalid": "",
-      "access_missing": "",
-      "user_pass_invalid": "",
-      "created_with": "",
-      "not_validated": ""
+      "access_invalid": "invalid token",
+      "access_missing": "missing token",
+      "user_pass_invalid": "username and / or password invalid",
+      "created_with": "account associated with authentication {oauth}",
+      "not_validated": "account not validated"
     },
     "reset": {
-      "oauth_user": ""
+      "oauth_user": "unauthorized reset"
     },
     "edit": {
-      "change_email_oauth": ""
+      "change_email_oauth": "change email is not permitted"
     },
     "internal": {
-      "unable_to_revoke_token": ""
+      "unable_to_revoke_token": "failure to ban your token"
     },
     "oauth": {
-      "email_associated_with": ""
+      "email_associated_with": "Email associated with authentication {oauth}"
     },
     "activation": {
       "token_invalid": "Activation token already used / invalid"
     },
-    "email_already_use": "",
-    "email_invalid": "",
-    "invalid_pass": "",
-    "invalid_params": ""
+    "email_already_use": "Email address already used",
+    "email_invalid": "Invalid Email Address",
+    "invalid_pass": "invalid password",
+    "invalid_params": "Invalid settings"
   },
   "lang": {
     "en": "English",
