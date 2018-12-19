@@ -1,11 +1,1 @@
-{
-  "lang": {
-    "en": "Anglais",
-    "fr": "Francais"
-  },
-  "username": "Nom d'utilisateur",
-  "password": "Mot de passe",
-  "create-account-button": "Creer un compte",
-  "auth-button": "Se connecter",
-  "forgotten-link": "Mot de passe oublier ?"
-}
+{}

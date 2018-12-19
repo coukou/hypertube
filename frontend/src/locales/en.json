@@ -7,7 +7,36 @@
       "min-4": "must be atleast 4 chars long",
       "max-16": "can't exceed 16 chars long",
       "alphanum": "must be only alphanumerical"
-    }
+    },
+    "profile": {
+      "not_found": "Profile doesnt exists"
+    },
+    "auth": {
+      "access_invalid": "",
+      "access_missing": "",
+      "user_pass_invalid": "",
+      "created_with": "",
+      "not_validated": ""
+    },
+    "reset": {
+      "oauth_user": ""
+    },
+    "edit": {
+      "change_email_oauth": ""
+    },
+    "internal": {
+      "unable_to_revoke_token": ""
+    },
+    "oauth": {
+      "email_associated_with": ""
+    },
+    "activation": {
+      "token_invalid": "Activation token already used / invalid"
+    },
+    "email_already_use": "",
+    "email_invalid": "",
+    "invalid_pass": "",
+    "invalid_params": ""
   },
   "lang": {
     "en": "English",
