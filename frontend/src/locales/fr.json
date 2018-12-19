@@ -1,1 +1,74 @@
-{}
+{
+  "err": {
+    "field": {
+      "missing": "est manquant",
+      "invalid": "est invalide",
+      "already-taken": "est déjà pris",
+      "min-4": "doit avoir au moins 4 caractères",
+      "max-16": "ne peut pas dépasser 16 caractères",
+      "alphanum": "doit être uniquement alphanumérique"
+    },
+    "profile": {
+      "not_found": "Le profil n'existe pas"
+    },
+    "auth": {
+      "access_invalid": "jeton invalide",
+      "access_missing": "jeton manquant",
+      "user_pass_invalid": "identifiant et/ou mot de passe invalide",
+      "created_with": "compte associé à l'authentification {oauth}",
+      "not_validated": "compte non validé"
+    },
+    "reset": {
+      "oauth_user": "réinitialisation non-autorisé"
+    },
+    "edit": {
+      "change_email_oauth": "changement d'email impossible"
+    },
+    "internal": {
+      "unable_to_revoke_token": "échec lors du bannissement de votre jeton"
+    },
+    "oauth": {
+      "email_associated_with": "Email associé à l'authentification {oauth}"
+    },
+    "activation": {
+      "token_invalid": "Jeton d'activation déjà utilisé / invalide"
+    },
+    "email_already_use": "Adresse Email déjà utilisé",
+    "email_invalid": "Adresse Email invalide",
+    "invalid_pass": "Mot de passe non valable",
+    "invalid_params": "Paramètres invalides"
+  },
+  "lang": {
+    "en": "English",
+    "fr": "French"
+  },
+  "page": {
+    "app": {
+      "new": {
+        "title": "Dis-nous en plus sur toi 🕵️"
+      }
+    },
+    "register": {
+      "title": "Enregistrement"
+    },
+    "forgotten": {
+      "title": "Vraiment ??? 😱",
+      "desc": "Ne paniquez pas! Prenez un ☕️. Nous vous enverrons un nouveau mot de passe"
+    }
+  },
+  "button": {
+    "reset-pass": "Réinitialiser mot de passe",
+    "auth": "Authentification",
+    "lets-go": "on y va! 🎠",
+    "create-account": "Créer un compte"
+  },
+  "retrieving-oauth-info": "Récupération des informations OAuth ...",
+  "back-to-login": "Cliquez ici pour revenir à la page de connexion",
+  "username": "Nom d'utilisateur",
+  "email": "Email",
+  "password-conf": "Confirmation de mot de passe",
+  "password": "Mot de passe",
+  "last-name": "Nom de famille",
+  "first-name": "Prénom",
+  "forgotten-link": "Mot de passe oublié?"
+}
