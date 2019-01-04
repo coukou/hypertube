@@ -8,5 +8,15 @@ module.exports = async (call, cb) => {
   if (!id) return cb({code: grpc.status.INVALID_ARGUMENT, message: "rip"})
   var [err, anime] = await to(Anime.findOne({_id: id}))
   if (err) return cb({code: grpc.status.INTERNAL, message: "unable to retrieve anime"})
-  return cb(null, anime)
+  return cb(null, {
+    id: anime._id,
+    title: anime.title,
+    synopsis: anime.synopsis,
+    thumbnail: anime.thumbnail,
+    episodes: anime.episodes.map(e => ({
+      num: e.num,
+      date: e.date,
+      qualities: e.qualities.map(q => q.quality)
+    }))
+  })
 }

@@ -14,7 +14,7 @@ module.exports = async (call, cb) => {
     title: data.title,
     synopsis: data.synopsis,
     thumbnail: data.thumbnail,
-    rating: data.rating || 0
+    popularity: data.popularity
   })
   
   var [err, anime] = await to(anime.save())

@@ -26,20 +26,21 @@ spec:
   - hypertube-gateway
   http:
   # internal routes
-  - match:
-    - uri:
-        prefix: /hypertube.auth.InternalAuthService
-      gateways:
-      - mesh
-    route:
-    - destination:
-        host: auth-service
-        port:
-          number: 3000
+  #- match:
+    #- uri:
+        #prefix: /hypertube.auth.InternalAuthService
+      #gateways:
+      #- mesh
+    #route:
+    #- destination:
+        #host: auth-service
+        #port:
+          #number: 3000
   # public routes
   - match:
     - uri:
-        prefix: /hypertube.auth.AuthService
+        #prefix: /hypertube.auth.AuthService
+        prefix: /hypertube.auth
     route:
     - destination:
         host: auth-service

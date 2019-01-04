@@ -9,7 +9,9 @@
     "@grpc/proto-loader": "^0.3.0",
     "axios": "^0.18.0",
     "better-queue": "^3.8.10",
+    "cheerio": "^1.0.0-rc.2",
     "google-protobuf": "^3.6.1",
-    "grpc": "^1.16.1"
+    "grpc": "^1.16.1",
+    "jsonframe-cheerio": "^3.0.1"
   }
 }

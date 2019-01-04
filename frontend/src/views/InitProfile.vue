@@ -16,7 +16,7 @@ import EditProfileForm from "../components/EditProfileForm";
 export default {
   components: {
     EditProfileForm
-  }
+  },
 };
 </script>
 

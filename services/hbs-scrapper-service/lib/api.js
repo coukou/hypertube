@@ -8,30 +8,32 @@ module.exports.getAnimeEpisodes = (id) => {
     const getEpisodes = async (page) => {
       try {
         const res = await axios.get(`https://horriblesubs.info/api.php?method=getshows&type=show&showid=${id}&nextid=${page}`)
-        if (res.data === 'DONE')
+        if (res.data === 'DONE') {
           return resolve(episodes)
+        }
         const $ = cheerio.load(res.data)
         jsonframe($)
-        episodes = episodes.concat($('body').scrape({
-            episodes: {
-              _s: '.rls-info-container',
-              _d: [{
-                date: '.rls-date',
-                number: '.rls-label > strong',
-                qualities: {
-                  _s: '.rls-link',
-                  _d: [{
-                    quality: '.rls-link-label || \\d+ | number',
-                    magnet: '.hs-magnet-link > a @ href'
-                  }]
-                }
-              }]
-            }
-        }).episodes, episodes)
-      } catch (err) {
-        console.log(`getEpisodeError:${id}:${err}`)
-      } finally {
+        const _episodes = $('body').scrape({
+          episodes: {
+            _s: '.rls-info-container',
+            _d: [{
+              date: '.rls-date',
+              number: '.rls-label > strong',
+              qualities: {
+                _s: '.rls-link',
+                _d: [{
+                  quality: '.rls-link-label || \\d+ | number',
+                  magnet: '.hs-magnet-link > a @ href'
+                }]
+              }
+            }]
+          }
+        }).episodes
+        episodes = episodes.concat(_episodes)
         getEpisodes(page+1)
+      } catch (err) {
+        console.log(err)
+        console.log(`getEpisodeError:${id}`)
       }
     }
     getEpisodes(0)
@@ -40,20 +42,22 @@ module.exports.getAnimeEpisodes = (id) => {
 
 module.exports.getAnimeDetails = (anime) => {
   return new Promise((resolve, reject) => {
-    axios.get('https://horriblesubs.info/' + anime.href)
+    axios.get(`https://kitsu.io/api/edge/anime?filter[text]=${encodeURI(anime.title)}`)
       .then((res) => {
-        const id = parseInt(/hs_showid = (\d+)/.exec(res.data)[1])
-        const $ = cheerio.load(res.data)
-        jsonframe($)
-        const details = $('body').scrape({
-          desc: '.series-desc > p',
-          image: '.series-image > img @ src'
-        })
-        details.id = id
-        details.image = `https://horriblesubs.info`+details.image
-        resolve(details)
+        if (!res.data.data || !res.data.data[0]) return resolve({})
+        const details = res.data.data[0].attributes
+        axios.get('https://horriblesubs.info/' + anime.href)
+          .then((res2) => {
+            const id = parseInt(/hs_showid = (\d+)/.exec(res2.data)[1])
+						resolve({
+							synopsis: details.synopsis,
+							thumbnail: details.posterImage.original,
+							popularity: details.popularityRank,
+							id: id
+						})
+          })
       })
-      .catch(() => {})
+      .catch(err => {})
   })
 }
 
@@ -74,6 +78,6 @@ module.exports.getAnimes = () => {
         }
         resolve($('body').scrape(frame).animes)
       })
-    .catch(reject)
+      .catch(reject)
   })
 }

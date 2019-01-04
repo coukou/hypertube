@@ -17,8 +17,10 @@ module.exports = {
   library: {
     service: pb.LibraryService.service,
     handlers: {
-      getAnime: require('./handlers/library/get-anime'),
-      animeList: require('./handlers/library/anime-list'),
+      getAnime: authGuard(require('./handlers/library/get-anime')),
+      animeList: authGuard(require('./handlers/library/anime-list')),
+      commentList: authGuard(require('./handlers/library/comment-list')),
+      commentEpisode: authGuard(require('./handlers/library/comment-episode'))
     }
   },
   internal: {
@@ -26,8 +28,7 @@ module.exports = {
     handlers: {
       addAnime: require('./handlers/internal/add-anime'),
       addAnimeEpisode: require('./handlers/internal/add-anime-episode'),
-      getAnimeTorrent: require('./handlers/internal/get-anime-torrent'),
-      //getMovieTorrent: require('./handlers/internal/get-movie-torrent')
+      getAnimeTorrent: require('./handlers/internal/get-anime-torrent')
     }
   }
 }

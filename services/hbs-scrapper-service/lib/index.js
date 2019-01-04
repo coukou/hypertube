@@ -23,7 +23,7 @@ const addEpisodeQueue = new Queue(function ({anime, episode}, cb) {
 }, QUEUE_OPTS)
 
 const retrieveEpisodesQueue = new Queue(function (anime, cb) {
-  api.getAnimeEpisodes(anime.id).then(episodes => {
+  api.getAnimeEpisodes(anime.details.id).then(episodes => {
     for (let episode of episodes) {
       addEpisodeQueue.push({anime, episode})
     }
@@ -33,15 +33,21 @@ const retrieveEpisodesQueue = new Queue(function (anime, cb) {
 
 const addAnimeQueue = new Queue(function (anime, cb) {
   api.getAnimeDetails(anime).then(details => {
+    // if thumbnail or synopsis missing we skip anime
+    if (!details.synopsis || !details.thumbnail || !details.popularity) {
+      return cb()
+    }
     const params = {
       title: anime.title,
-      synopsis: details.desc,
-      thumbnail: details.image
+      synopsis: details.synopsis,
+      thumbnail: details.thumbnail,
+      popularity: details.popularity
     }
     library.addAnime(params, (err, res) => {
       if (err) return console.log(`Error adding anime: ${anime.title}:`, err)
       console.log(`Anime: ${anime.title} added`)
       anime.id = res.anime_id
+      anime.details = details
       retrieveEpisodesQueue.push(anime)
       cb()
     })

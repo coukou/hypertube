@@ -180,6 +180,112 @@ proto.hypertube.library.LibraryServicePromiseClient.prototype.animeList =
 
 
 /**
+ * @const
+ * @type {!grpc.web.AbstractClientBase.MethodInfo<
+ *   !proto.hypertube.library.CommentRequest,
+ *   !proto.hypertube.library.Comment>}
+ */
+const methodInfo_LibraryService_CommentEpisode = new grpc.web.AbstractClientBase.MethodInfo(
+  proto.hypertube.library.Comment,
+  /** @param {!proto.hypertube.library.CommentRequest} request */
+  function(request) {
+    return request.serializeBinary();
+  },
+  proto.hypertube.library.Comment.deserializeBinary
+);
+
+
+/**
+ * @param {!proto.hypertube.library.CommentRequest} request The
+ *     request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @param {function(?grpc.web.Error, ?proto.hypertube.library.Comment)}
+ *     callback The callback function(error, response)
+ * @return {!grpc.web.ClientReadableStream<!proto.hypertube.library.Comment>|undefined}
+ *     The XHR Node Readable Stream
+ */
+proto.hypertube.library.LibraryServiceClient.prototype.commentEpisode =
+    function(request, metadata, callback) {
+  return this.client_.rpcCall(this.hostname_ +
+      '/hypertube.library.LibraryService/CommentEpisode',
+      request,
+      metadata || {},
+      methodInfo_LibraryService_CommentEpisode,
+      callback);
+};
+
+
+/**
+ * @param {!proto.hypertube.library.CommentRequest} request The
+ *     request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @return {!Promise<!proto.hypertube.library.Comment>}
+ *     The XHR Node Readable Stream
+ */
+proto.hypertube.library.LibraryServicePromiseClient.prototype.commentEpisode =
+    function(request, metadata) {
+  return new Promise((resolve, reject) => {
+    this.delegateClient_.commentEpisode(
+      request, metadata, (error, response) => {
+        error ? reject(error) : resolve(response);
+      });
+  });
+};
+
+
+/**
+ * @const
+ * @type {!grpc.web.AbstractClientBase.MethodInfo<
+ *   !proto.hypertube.library.CommentListRequest,
+ *   !proto.hypertube.library.Comment>}
+ */
+const methodInfo_LibraryService_CommentList = new grpc.web.AbstractClientBase.MethodInfo(
+  proto.hypertube.library.Comment,
+  /** @param {!proto.hypertube.library.CommentListRequest} request */
+  function(request) {
+    return request.serializeBinary();
+  },
+  proto.hypertube.library.Comment.deserializeBinary
+);
+
+
+/**
+ * @param {!proto.hypertube.library.CommentListRequest} request The request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @return {!grpc.web.ClientReadableStream<!proto.hypertube.library.Comment>}
+ *     The XHR Node Readable Stream
+ */
+proto.hypertube.library.LibraryServiceClient.prototype.commentList =
+    function(request, metadata) {
+  return this.client_.serverStreaming(this.hostname_ +
+      '/hypertube.library.LibraryService/CommentList',
+      request,
+      metadata,
+      methodInfo_LibraryService_CommentList);
+};
+
+
+/**
+ * @param {!proto.hypertube.library.CommentListRequest} request The request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @return {!grpc.web.ClientReadableStream<!proto.hypertube.library.Comment>}
+ *     The XHR Node Readable Stream
+ */
+proto.hypertube.library.LibraryServicePromiseClient.prototype.commentList =
+    function(request, metadata) {
+  return this.delegateClient_.client_.serverStreaming(this.delegateClient_.hostname_ +
+      '/hypertube.library.LibraryService/CommentList',
+      request,
+      metadata,
+      methodInfo_LibraryService_CommentList);
+};
+
+
+/**
  * @param {string} hostname
  * @param {?Object} credentials
  * @param {?Object} options
@@ -398,62 +504,6 @@ proto.hypertube.library.InternalLibraryServicePromiseClient.prototype.getAnimeTo
     function(request, metadata) {
   return new Promise((resolve, reject) => {
     this.delegateClient_.getAnimeTorrent(
-      request, metadata, (error, response) => {
-        error ? reject(error) : resolve(response);
-      });
-  });
-};
-
-
-/**
- * @const
- * @type {!grpc.web.AbstractClientBase.MethodInfo<
- *   !proto.hypertube.library.GetTorrentRequest,
- *   !proto.hypertube.library.GetTorrentResponse>}
- */
-const methodInfo_InternalLibraryService_GetMovieTorrent = new grpc.web.AbstractClientBase.MethodInfo(
-  proto.hypertube.library.GetTorrentResponse,
-  /** @param {!proto.hypertube.library.GetTorrentRequest} request */
-  function(request) {
-    return request.serializeBinary();
-  },
-  proto.hypertube.library.GetTorrentResponse.deserializeBinary
-);
-
-
-/**
- * @param {!proto.hypertube.library.GetTorrentRequest} request The
- *     request proto
- * @param {?Object<string, string>} metadata User defined
- *     call metadata
- * @param {function(?grpc.web.Error, ?proto.hypertube.library.GetTorrentResponse)}
- *     callback The callback function(error, response)
- * @return {!grpc.web.ClientReadableStream<!proto.hypertube.library.GetTorrentResponse>|undefined}
- *     The XHR Node Readable Stream
- */
-proto.hypertube.library.InternalLibraryServiceClient.prototype.getMovieTorrent =
-    function(request, metadata, callback) {
-  return this.client_.rpcCall(this.hostname_ +
-      '/hypertube.library.InternalLibraryService/GetMovieTorrent',
-      request,
-      metadata || {},
-      methodInfo_InternalLibraryService_GetMovieTorrent,
-      callback);
-};
-
-
-/**
- * @param {!proto.hypertube.library.GetTorrentRequest} request The
- *     request proto
- * @param {?Object<string, string>} metadata User defined
- *     call metadata
- * @return {!Promise<!proto.hypertube.library.GetTorrentResponse>}
- *     The XHR Node Readable Stream
- */
-proto.hypertube.library.InternalLibraryServicePromiseClient.prototype.getMovieTorrent =
-    function(request, metadata) {
-  return new Promise((resolve, reject) => {
-    this.delegateClient_.getMovieTorrent(
       request, metadata, (error, response) => {
         error ? reject(error) : resolve(response);
       });

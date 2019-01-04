@@ -1,6 +1,6 @@
 import store from "../store";
 import { ProfileServiceClient } from "../protos/profile/profile_grpc_web_pb";
-import { Empty, EditRequest } from "../protos/profile/profile_pb";
+import * as pb from "../protos/profile/profile_pb";
 
 const profileClient = new ProfileServiceClient(
   "http://192.168.99.100:31380",
@@ -28,11 +28,16 @@ const unaryCall = (method, req) => {
 
 export default {
   myProfile() {
-    const req = new Empty();
+    const req = new pb.Empty();
     return unaryCall(profileClient.myProfile.bind(profileClient), req);
   },
+  profile(id) {
+    const req = new pb.ProfileRequest();
+    req.setId(id);
+    return unaryCall(profileClient.profile.bind(profileClient), req);
+  },
   edit(data) {
-    const req = new EditRequest();
+    const req = new pb.EditRequest();
     req.setLastName(data.lastName);
     req.setFirstName(data.firstName);
     return unaryCall(profileClient.edit.bind(profileClient), req);

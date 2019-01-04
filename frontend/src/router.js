@@ -66,6 +66,12 @@ const router = new Router({
           name: "ht-app-anime",
           component: () =>
             import(/* webpackChunkName: "ht-app-anime" */ "./views/AppAnime.vue")
+        },
+        {
+          path: "anime/watch/:id/:episode/:quality",
+          name: "ht-app-player",
+          component: () =>
+            import(/* webpackChunkName: "ht-app-player" */ "./views/AnimePlayer.vue")
         }
       ]
     },

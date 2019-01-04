@@ -14,9 +14,9 @@ const createMetadata = () => {
   };
 };
 
-const unaryCall = (method, req) => {
+const unaryCall = (method, metadata, req) => {
   return new Promise((resolve, reject) => {
-    method(req, {}, (err, data) => {
+    method(req, metadata, (err, data) => {
       if (!err) return resolve(data);
       if (err.code === 3) return console.log(err); // TODO: server validation errors
       reject(err);
@@ -36,6 +36,29 @@ export default {
   getAnime(id) {
     const req = new pb.AnimeRequest();
     req.setId(id);
-    return unaryCall(libraryClient.getAnime.bind(libraryClient), req);
+    return unaryCall(
+      libraryClient.getAnime.bind(libraryClient),
+      createMetadata(),
+      req
+    );
+  },
+  getComments(opts, cb) {
+    const req = new pb.CommentListRequest();
+    req.setAnime(opts.anime);
+    req.setEpisode(opts.episode);
+    libraryClient.commentList(req, createMetadata()).on("data", comment => {
+      cb(comment.toObject());
+    });
+  },
+  commentEpisode(anime, episode, comment) {
+    const req = new pb.CommentRequest();
+    req.setAnime(anime);
+    req.setEpisode(episode);
+    req.setComment(comment);
+    return unaryCall(
+      libraryClient.commentEpisode.bind(libraryClient),
+      createMetadata(),
+      req
+    );
   }
 };

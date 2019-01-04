@@ -1,6 +1,6 @@
 <template>
   <n3-form ref="form">
-    <profile-avatar :avatar="$store.state.profile.avatar" />
+    <profile-avatar :avatar="$store.state.profile.avatar" :upload="true" />
       <n3-form-item :label-col="0" :form-col="12">
       <n3-input
         :placeholder="$t('last-name')"

@@ -50,6 +50,9 @@ export default new Vuex.Store({
     setProfile: (state, profile) => {
       for (let k in profile) state.profile[k] = profile[k];
     },
+    setAvatar: (state, avatar) => {
+      state.profile.avatar = avatar
+    },
     logout: state => {
       cookies.remove("access-token");
 
@@ -72,6 +75,9 @@ export default new Vuex.Store({
         username: data.username,
         email: data.email
       };
+    },
+    accessToken: state => {
+      return state.accessToken;
     },
     animes: state => {
       return state.movies.animes;

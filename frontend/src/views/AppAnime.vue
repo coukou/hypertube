@@ -1,20 +1,36 @@
 <template>
   <div v-if="anime">
-    <h1 class="title">{{ anime.title }}</h1>
-    <div>thumbnail</div>
-    <span class="synopsis">{{ anime.synopsis }}</span>
-    <div v-for="episode of episodes" :key="episode.num">
-      {{ episode.num }}
-      <div v-for="q of episode.qualitiesList" :key="q.quality">
-        <span>{{ q }}</span>
+    <anime-card
+      style="display:block;margin:auto;"
+      :title="anime.title"
+      :thumb="anime.thumbnail"
+    ></anime-card>
+    <div>
+      <h2>synopsis</h2>
+      <div class="synopsis">{{ anime.synopsis }}</div>
+    </div>
+    <div>
+      <h2>episodes</h2>
+      <div class="episode" v-for="episode of episodes" :key="episode.num">
+        <span>episode {{ episode.num }}</span>
+        <span class="quality" v-for="q of episode.qualitiesList" :key="q.quality">
+          <n3-button @click.native="() => watch(anime.id, episode.num, q)">{{ q }}p</n3-button>
+        </span>
       </div>
     </div>
   </div>
+  <loading-dots v-else></loading-dots>
 </template>
 
 <script>
+import AnimeCard from "@/components/AnimeCard";
+import LoadingDots from "@/components/LoadingDots";
 import LibraryService from "@/services/library";
 export default {
+  components: {
+    AnimeCard,
+    LoadingDots
+  },
   created() {
     this.fetchAnime(this.$route.params.id);
   },
@@ -28,18 +44,26 @@ export default {
       LibraryService.getAnime(id).then(
         anime => (this.anime = anime.toObject())
       );
+    },
+    watch(animeId, episode, quality) {
+      this.$router.push(`/app/anime/watch/${animeId}/${episode}/${quality}`);
     }
   },
   computed: {
     episodes() {
-      console.log(this.anime.episodesList);
       return this.anime.episodesList
         .slice()
-        .sort((a, b) => parseInt(a.num) - parseInt(b.num));
+        .sort((a, b) => parseInt(b.num) - parseInt(a.num));
     }
   }
 };
 </script>
 
-<style>
+<style scoped>
+.episode {
+  padding: 5px 0;
+}
+.quality {
+  padding: 0 5px;
+}
 </style>

@@ -70,6 +70,39 @@ function deserialize_hypertube_library_AnimeRequest(buffer_arg) {
   return library_library_pb.AnimeRequest.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
+function serialize_hypertube_library_Comment(arg) {
+  if (!(arg instanceof library_library_pb.Comment)) {
+    throw new Error('Expected argument of type hypertube.library.Comment');
+  }
+  return new Buffer(arg.serializeBinary());
+}
+
+function deserialize_hypertube_library_Comment(buffer_arg) {
+  return library_library_pb.Comment.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_hypertube_library_CommentListRequest(arg) {
+  if (!(arg instanceof library_library_pb.CommentListRequest)) {
+    throw new Error('Expected argument of type hypertube.library.CommentListRequest');
+  }
+  return new Buffer(arg.serializeBinary());
+}
+
+function deserialize_hypertube_library_CommentListRequest(buffer_arg) {
+  return library_library_pb.CommentListRequest.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_hypertube_library_CommentRequest(arg) {
+  if (!(arg instanceof library_library_pb.CommentRequest)) {
+    throw new Error('Expected argument of type hypertube.library.CommentRequest');
+  }
+  return new Buffer(arg.serializeBinary());
+}
+
+function deserialize_hypertube_library_CommentRequest(buffer_arg) {
+  return library_library_pb.CommentRequest.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
 function serialize_hypertube_library_Empty(arg) {
   if (!(arg instanceof library_library_pb.Empty)) {
     throw new Error('Expected argument of type hypertube.library.Empty');
@@ -127,6 +160,28 @@ var LibraryServiceService = exports.LibraryServiceService = {
     responseSerialize: serialize_hypertube_library_Anime,
     responseDeserialize: deserialize_hypertube_library_Anime,
   },
+  commentEpisode: {
+    path: '/hypertube.library.LibraryService/CommentEpisode',
+    requestStream: false,
+    responseStream: false,
+    requestType: library_library_pb.CommentRequest,
+    responseType: library_library_pb.Comment,
+    requestSerialize: serialize_hypertube_library_CommentRequest,
+    requestDeserialize: deserialize_hypertube_library_CommentRequest,
+    responseSerialize: serialize_hypertube_library_Comment,
+    responseDeserialize: deserialize_hypertube_library_Comment,
+  },
+  commentList: {
+    path: '/hypertube.library.LibraryService/CommentList',
+    requestStream: false,
+    responseStream: true,
+    requestType: library_library_pb.CommentListRequest,
+    responseType: library_library_pb.Comment,
+    requestSerialize: serialize_hypertube_library_CommentListRequest,
+    requestDeserialize: deserialize_hypertube_library_CommentListRequest,
+    responseSerialize: serialize_hypertube_library_Comment,
+    responseDeserialize: deserialize_hypertube_library_Comment,
+  },
 };
 
 exports.LibraryServiceClient = grpc.makeGenericClientConstructor(LibraryServiceService);
@@ -155,17 +210,6 @@ var InternalLibraryServiceService = exports.InternalLibraryServiceService = {
   },
   getAnimeTorrent: {
     path: '/hypertube.library.InternalLibraryService/GetAnimeTorrent',
-    requestStream: false,
-    responseStream: false,
-    requestType: library_library_pb.GetTorrentRequest,
-    responseType: library_library_pb.GetTorrentResponse,
-    requestSerialize: serialize_hypertube_library_GetTorrentRequest,
-    requestDeserialize: deserialize_hypertube_library_GetTorrentRequest,
-    responseSerialize: serialize_hypertube_library_GetTorrentResponse,
-    responseDeserialize: deserialize_hypertube_library_GetTorrentResponse,
-  },
-  getMovieTorrent: {
-    path: '/hypertube.library.InternalLibraryService/GetMovieTorrent',
     requestStream: false,
     responseStream: false,
     requestType: library_library_pb.GetTorrentRequest,

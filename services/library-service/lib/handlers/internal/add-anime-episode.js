@@ -5,7 +5,6 @@ const Anime = require('../../models/anime')
 
 module.exports = async (call, cb) => {
   const data = call.request
-
   var [err, anime] = await to(Anime.findOne({_id: data.anime_id}))
   if (err) return cb({code: grpc.status.INTERNAL, message: `unable to retrieve anime with id: ${data.anime_id}`})
   if (!anime) return cb({code: grpc.status.INTERNAL, message: `anime with id: ${data.anime_id} doesnt exists`})

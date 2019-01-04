@@ -18,6 +18,9 @@ goog.exportSymbol('proto.hypertube.library.AnimeAddResponse', null, global);
 goog.exportSymbol('proto.hypertube.library.AnimeListRequest', null, global);
 goog.exportSymbol('proto.hypertube.library.AnimeRequest', null, global);
 goog.exportSymbol('proto.hypertube.library.AnimeSeenRequest', null, global);
+goog.exportSymbol('proto.hypertube.library.Comment', null, global);
+goog.exportSymbol('proto.hypertube.library.CommentListRequest', null, global);
+goog.exportSymbol('proto.hypertube.library.CommentRequest', null, global);
 goog.exportSymbol('proto.hypertube.library.Empty', null, global);
 goog.exportSymbol('proto.hypertube.library.Episode', null, global);
 goog.exportSymbol('proto.hypertube.library.EpisodeQuality', null, global);
@@ -187,7 +190,7 @@ proto.hypertube.library.EpisodeQuality.prototype.toObject = function(opt_include
 proto.hypertube.library.EpisodeQuality.toObject = function(includeInstance, msg) {
   var f, obj = {
     quality: jspb.Message.getFieldWithDefault(msg, 1, ""),
-    magnet: jspb.Message.getFieldWithDefault(msg, 2, "")
+    torrent: jspb.Message.getFieldWithDefault(msg, 2, "")
   };
 
   if (includeInstance) {
@@ -230,7 +233,7 @@ proto.hypertube.library.EpisodeQuality.deserializeBinaryFromReader = function(ms
       break;
     case 2:
       var value = /** @type {string} */ (reader.readString());
-      msg.setMagnet(value);
+      msg.setTorrent(value);
       break;
     default:
       reader.skipField();
@@ -268,7 +271,7 @@ proto.hypertube.library.EpisodeQuality.serializeBinaryToWriter = function(messag
       f
     );
   }
-  f = message.getMagnet();
+  f = message.getTorrent();
   if (f.length > 0) {
     writer.writeString(
       2,
@@ -294,16 +297,16 @@ proto.hypertube.library.EpisodeQuality.prototype.setQuality = function(value) {
 
 
 /**
- * optional string magnet = 2;
+ * optional string torrent = 2;
  * @return {string}
  */
-proto.hypertube.library.EpisodeQuality.prototype.getMagnet = function() {
+proto.hypertube.library.EpisodeQuality.prototype.getTorrent = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
 };
 
 
 /** @param {string} value */
-proto.hypertube.library.EpisodeQuality.prototype.setMagnet = function(value) {
+proto.hypertube.library.EpisodeQuality.prototype.setTorrent = function(value) {
   jspb.Message.setField(this, 2, value);
 };
 
@@ -1800,7 +1803,9 @@ proto.hypertube.library.GetTorrentRequest.prototype.toObject = function(opt_incl
  */
 proto.hypertube.library.GetTorrentRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-    id: jspb.Message.getFieldWithDefault(msg, 1, "")
+    anime: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    episode: jspb.Message.getFieldWithDefault(msg, 2, ""),
+    quality: jspb.Message.getFieldWithDefault(msg, 3, "")
   };
 
   if (includeInstance) {
@@ -1839,7 +1844,15 @@ proto.hypertube.library.GetTorrentRequest.deserializeBinaryFromReader = function
     switch (field) {
     case 1:
       var value = /** @type {string} */ (reader.readString());
-      msg.setId(value);
+      msg.setAnime(value);
+      break;
+    case 2:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setEpisode(value);
+      break;
+    case 3:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setQuality(value);
       break;
     default:
       reader.skipField();
@@ -1870,10 +1883,24 @@ proto.hypertube.library.GetTorrentRequest.prototype.serializeBinary = function()
  */
 proto.hypertube.library.GetTorrentRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getId();
+  f = message.getAnime();
   if (f.length > 0) {
     writer.writeString(
       1,
+      f
+    );
+  }
+  f = message.getEpisode();
+  if (f.length > 0) {
+    writer.writeString(
+      2,
+      f
+    );
+  }
+  f = message.getQuality();
+  if (f.length > 0) {
+    writer.writeString(
+      3,
       f
     );
   }
@@ -1881,17 +1908,47 @@ proto.hypertube.library.GetTorrentRequest.serializeBinaryToWriter = function(mes
 
 
 /**
- * optional string id = 1;
+ * optional string anime = 1;
  * @return {string}
  */
-proto.hypertube.library.GetTorrentRequest.prototype.getId = function() {
+proto.hypertube.library.GetTorrentRequest.prototype.getAnime = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
 
 /** @param {string} value */
-proto.hypertube.library.GetTorrentRequest.prototype.setId = function(value) {
+proto.hypertube.library.GetTorrentRequest.prototype.setAnime = function(value) {
   jspb.Message.setField(this, 1, value);
+};
+
+
+/**
+ * optional string episode = 2;
+ * @return {string}
+ */
+proto.hypertube.library.GetTorrentRequest.prototype.getEpisode = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+};
+
+
+/** @param {string} value */
+proto.hypertube.library.GetTorrentRequest.prototype.setEpisode = function(value) {
+  jspb.Message.setField(this, 2, value);
+};
+
+
+/**
+ * optional string quality = 3;
+ * @return {string}
+ */
+proto.hypertube.library.GetTorrentRequest.prototype.getQuality = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
+};
+
+
+/** @param {string} value */
+proto.hypertube.library.GetTorrentRequest.prototype.setQuality = function(value) {
+  jspb.Message.setField(this, 3, value);
 };
 
 
@@ -1942,7 +1999,7 @@ proto.hypertube.library.GetTorrentResponse.prototype.toObject = function(opt_inc
  */
 proto.hypertube.library.GetTorrentResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
-    magnet: jspb.Message.getFieldWithDefault(msg, 1, "")
+    torrent: jspb.Message.getFieldWithDefault(msg, 1, "")
   };
 
   if (includeInstance) {
@@ -1981,7 +2038,7 @@ proto.hypertube.library.GetTorrentResponse.deserializeBinaryFromReader = functio
     switch (field) {
     case 1:
       var value = /** @type {string} */ (reader.readString());
-      msg.setMagnet(value);
+      msg.setTorrent(value);
       break;
     default:
       reader.skipField();
@@ -2012,7 +2069,7 @@ proto.hypertube.library.GetTorrentResponse.prototype.serializeBinary = function(
  */
 proto.hypertube.library.GetTorrentResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getMagnet();
+  f = message.getTorrent();
   if (f.length > 0) {
     writer.writeString(
       1,
@@ -2023,16 +2080,16 @@ proto.hypertube.library.GetTorrentResponse.serializeBinaryToWriter = function(me
 
 
 /**
- * optional string magnet = 1;
+ * optional string torrent = 1;
  * @return {string}
  */
-proto.hypertube.library.GetTorrentResponse.prototype.getMagnet = function() {
+proto.hypertube.library.GetTorrentResponse.prototype.getTorrent = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
 
 /** @param {string} value */
-proto.hypertube.library.GetTorrentResponse.prototype.setMagnet = function(value) {
+proto.hypertube.library.GetTorrentResponse.prototype.setTorrent = function(value) {
   jspb.Message.setField(this, 1, value);
 };
 
@@ -2176,6 +2233,540 @@ proto.hypertube.library.AnimeRequest.prototype.getId = function() {
 /** @param {string} value */
 proto.hypertube.library.AnimeRequest.prototype.setId = function(value) {
   jspb.Message.setField(this, 1, value);
+};
+
+
+
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.hypertube.library.CommentRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.hypertube.library.CommentRequest, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  proto.hypertube.library.CommentRequest.displayName = 'proto.hypertube.library.CommentRequest';
+}
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto suitable for use in Soy templates.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+ * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+ *     for transitional soy proto support: http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.hypertube.library.CommentRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.hypertube.library.CommentRequest.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Whether to include the JSPB
+ *     instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.hypertube.library.CommentRequest} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.hypertube.library.CommentRequest.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    anime: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    episode: jspb.Message.getFieldWithDefault(msg, 2, ""),
+    comment: jspb.Message.getFieldWithDefault(msg, 3, "")
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.hypertube.library.CommentRequest}
+ */
+proto.hypertube.library.CommentRequest.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.hypertube.library.CommentRequest;
+  return proto.hypertube.library.CommentRequest.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.hypertube.library.CommentRequest} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.hypertube.library.CommentRequest}
+ */
+proto.hypertube.library.CommentRequest.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setAnime(value);
+      break;
+    case 2:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setEpisode(value);
+      break;
+    case 3:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setComment(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.hypertube.library.CommentRequest.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.hypertube.library.CommentRequest.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.hypertube.library.CommentRequest} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.hypertube.library.CommentRequest.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getAnime();
+  if (f.length > 0) {
+    writer.writeString(
+      1,
+      f
+    );
+  }
+  f = message.getEpisode();
+  if (f.length > 0) {
+    writer.writeString(
+      2,
+      f
+    );
+  }
+  f = message.getComment();
+  if (f.length > 0) {
+    writer.writeString(
+      3,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional string anime = 1;
+ * @return {string}
+ */
+proto.hypertube.library.CommentRequest.prototype.getAnime = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/** @param {string} value */
+proto.hypertube.library.CommentRequest.prototype.setAnime = function(value) {
+  jspb.Message.setField(this, 1, value);
+};
+
+
+/**
+ * optional string episode = 2;
+ * @return {string}
+ */
+proto.hypertube.library.CommentRequest.prototype.getEpisode = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+};
+
+
+/** @param {string} value */
+proto.hypertube.library.CommentRequest.prototype.setEpisode = function(value) {
+  jspb.Message.setField(this, 2, value);
+};
+
+
+/**
+ * optional string comment = 3;
+ * @return {string}
+ */
+proto.hypertube.library.CommentRequest.prototype.getComment = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
+};
+
+
+/** @param {string} value */
+proto.hypertube.library.CommentRequest.prototype.setComment = function(value) {
+  jspb.Message.setField(this, 3, value);
+};
+
+
+
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.hypertube.library.Comment = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.hypertube.library.Comment, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  proto.hypertube.library.Comment.displayName = 'proto.hypertube.library.Comment';
+}
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto suitable for use in Soy templates.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+ * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+ *     for transitional soy proto support: http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.hypertube.library.Comment.prototype.toObject = function(opt_includeInstance) {
+  return proto.hypertube.library.Comment.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Whether to include the JSPB
+ *     instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.hypertube.library.Comment} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.hypertube.library.Comment.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    author: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    text: jspb.Message.getFieldWithDefault(msg, 2, "")
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.hypertube.library.Comment}
+ */
+proto.hypertube.library.Comment.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.hypertube.library.Comment;
+  return proto.hypertube.library.Comment.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.hypertube.library.Comment} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.hypertube.library.Comment}
+ */
+proto.hypertube.library.Comment.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setAuthor(value);
+      break;
+    case 2:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setText(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.hypertube.library.Comment.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.hypertube.library.Comment.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.hypertube.library.Comment} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.hypertube.library.Comment.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getAuthor();
+  if (f.length > 0) {
+    writer.writeString(
+      1,
+      f
+    );
+  }
+  f = message.getText();
+  if (f.length > 0) {
+    writer.writeString(
+      2,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional string author = 1;
+ * @return {string}
+ */
+proto.hypertube.library.Comment.prototype.getAuthor = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/** @param {string} value */
+proto.hypertube.library.Comment.prototype.setAuthor = function(value) {
+  jspb.Message.setField(this, 1, value);
+};
+
+
+/**
+ * optional string text = 2;
+ * @return {string}
+ */
+proto.hypertube.library.Comment.prototype.getText = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+};
+
+
+/** @param {string} value */
+proto.hypertube.library.Comment.prototype.setText = function(value) {
+  jspb.Message.setField(this, 2, value);
+};
+
+
+
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.hypertube.library.CommentListRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.hypertube.library.CommentListRequest, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  proto.hypertube.library.CommentListRequest.displayName = 'proto.hypertube.library.CommentListRequest';
+}
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto suitable for use in Soy templates.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+ * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+ *     for transitional soy proto support: http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.hypertube.library.CommentListRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.hypertube.library.CommentListRequest.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Whether to include the JSPB
+ *     instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.hypertube.library.CommentListRequest} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.hypertube.library.CommentListRequest.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    anime: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    episode: jspb.Message.getFieldWithDefault(msg, 2, "")
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.hypertube.library.CommentListRequest}
+ */
+proto.hypertube.library.CommentListRequest.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.hypertube.library.CommentListRequest;
+  return proto.hypertube.library.CommentListRequest.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.hypertube.library.CommentListRequest} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.hypertube.library.CommentListRequest}
+ */
+proto.hypertube.library.CommentListRequest.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setAnime(value);
+      break;
+    case 2:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setEpisode(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.hypertube.library.CommentListRequest.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.hypertube.library.CommentListRequest.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.hypertube.library.CommentListRequest} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.hypertube.library.CommentListRequest.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getAnime();
+  if (f.length > 0) {
+    writer.writeString(
+      1,
+      f
+    );
+  }
+  f = message.getEpisode();
+  if (f.length > 0) {
+    writer.writeString(
+      2,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional string anime = 1;
+ * @return {string}
+ */
+proto.hypertube.library.CommentListRequest.prototype.getAnime = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/** @param {string} value */
+proto.hypertube.library.CommentListRequest.prototype.setAnime = function(value) {
+  jspb.Message.setField(this, 1, value);
+};
+
+
+/**
+ * optional string episode = 2;
+ * @return {string}
+ */
+proto.hypertube.library.CommentListRequest.prototype.getEpisode = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+};
+
+
+/** @param {string} value */
+proto.hypertube.library.CommentListRequest.prototype.setEpisode = function(value) {
+  jspb.Message.setField(this, 2, value);
 };
 
 

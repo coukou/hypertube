@@ -8,7 +8,9 @@
           <n3-icon type="bars"></n3-icon>
         </n3-button>
       </div>
-      <div class="brand">Hypertube</div>
+      <div class="brand">
+        <router-link to="/app">Hypertube</router-link>
+      </div>
       <div>
         <n3-button-group>
           <n3-button>
@@ -23,7 +25,7 @@
         </n3-button-group>
       </div>
     </div>
-    <div>
+    <div class="main">
       <router-view></router-view>
     </div>
   </div>
@@ -53,5 +55,14 @@ export default {
   letter-spacing: 2px;
   font-weight: bold;
   text-transform: uppercase;
+}
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+  height: 100%;
 }
 </style>

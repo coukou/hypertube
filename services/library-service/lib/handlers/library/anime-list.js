@@ -9,9 +9,12 @@ module.exports = async (call) => {
   data.offset = Math.max(data.offset || 0, 0)
   data.limit = Math.min(data.limit || 20, 20)
 
-  var [err, animes] = await to(Anime.find().sort('title').skip(data.offset).limit(data.limit).exec())
+  var [err, animes] = await to(Anime.find({
+    episodes: { $exists: true }, $where: 'this.episodes.length > 0'
+  }).sort('popularity').skip(data.offset).limit(data.limit).exec())
   if (err) return call.end()
-  animes.forEach((anime, i) => {
+
+  for (let anime of animes) { 
     call.write({
       id: anime._id,
       title: anime.title,
@@ -23,7 +26,6 @@ module.exports = async (call) => {
         qualities: e.qualities.map(q => q.quality)
       }))
     })
-    if (i === animes.length - 1)
-      return call.end()
-  })
+  }
+  call.end()
 }

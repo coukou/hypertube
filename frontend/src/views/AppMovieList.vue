@@ -1,25 +1,27 @@
 <template>
   <div>
     <transition-group name="fade" mode="out-in">
-      <div class="card" v-for="anime of $store.getters.animes" :key="anime.id" @click="() => goto(anime.id)">
-        <h1>{{anime.title}}</h1>
-        <div class="card-thumb" :style="`background-image: url('${anime.thumbnail}')`"></div>
-      </div>
+      <anime-card v-for="anime of $store.getters.animes"
+        :key="anime.id"
+        :title="anime.title"
+        :thumb="anime.thumbnail"
+        @click.native="() => goto(anime.id)"
+      ></anime-card>
     </transition-group>
   </div>
 </template>
 
 <script>
+import AnimeCard from "@/components/AnimeCard";
 import LibraryService from "@/services/library";
 export default {
+  components: {
+    AnimeCard
+  },
   methods: {
     fetchAnimes(offset, limit) {
-      let retrieved = 0;
       LibraryService.getAnimes({ offset, limit }, anime => {
         setTimeout(() => this.$store.commit("addAnime", anime), 200);
-        if (++retrieved === limit) {
-          setTimeout(() => this.fetchAnimes(offset + limit, limit), 100);
-        }
       });
     },
     goto(animeId) {
@@ -28,25 +30,7 @@ export default {
   },
   mounted() {
     this.fetchAnimes(0, 10);
+    this.fetchAnimes(695, 10);
   }
 };
 </script>
-
-<style scoped>
-.card {
-  display: inline-flex;
-  flex-direction: column;
-  width: 300px;
-}
-.card-thumb {
-  height: 300px;
-  width: 200px;
-  margin: auto;
-  background-size: contain;
-  background-repeat: no-repeat;
-}
-.card > h1 {
-  font-size: 20px;
-  text-align: center;
-}
-</style>
