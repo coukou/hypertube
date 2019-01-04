@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shana-scrapper
+  labels:
+    app: shana-scrapper
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: shana-scrapper
+      tier: service
+  template:
+    metadata:
+      labels:
+        app: shana-scrapper
+        tier: service
+    spec:
+      containers:
+      - name: shana-scrapper
+        image: hypertube/shana-scrapper-service
+        imagePullPolicy: IfNotPresent

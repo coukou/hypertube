@@ -69,7 +69,7 @@ export default {
     updateSubtitles() {
       if (!this.player.track) return;
       const { id, episode, quality } = this.$route.params;
-      const url = `http://localhost:3000/sub?anime=${id}&episode=${episode}&quality=${quality}`;
+      const url = `http://192.168.99.100:3000/sub?anime=${id}&episode=${episode}&quality=${quality}`;
       fetch(url).then(res => {
         res.text().then(vtt => {
           const parser = new WebVTT.Parser(window, WebVTT.StringDecoder());
@@ -87,7 +87,7 @@ export default {
     },
     updateMetadata() {
       const { id, episode, quality } = this.$route.params;
-      const url = `http://localhost:3000/info?anime=${id}&episode=${episode}&quality=${quality}`;
+      const url = `http://192.168.99.100:3000/info?anime=${id}&episode=${episode}&quality=${quality}`;
       fetch(url).then(res => {
         res.json().then(data => {
           this.updateSubtitles();
@@ -120,7 +120,7 @@ export default {
     },
     getSource() {
       const { id, episode, quality } = this.$route.params;
-      return `http://localhost:3000/video?anime=${id}&episode=${episode}&quality=${quality}`;
+      return `http://192.168.99.100:3000/video?anime=${id}&episode=${episode}&quality=${quality}`;
     },
     sendComment() {
       const { id, episode } = this.$route.params;

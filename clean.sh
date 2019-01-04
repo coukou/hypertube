@@ -16,3 +16,5 @@ kubectl delete -f k8s/library-svc/mongo.yaml
 kubectl delete -f <(istioctl kube-inject -f k8s/library-svc/service.yaml)
 
 kubectl delete -f <(istioctl kube-inject -f k8s/avatar-svc/service.yaml)
+
+kubectl delete -f k8s/hbs-scrapper/service.yaml

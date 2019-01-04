@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hbs-scrapper
+  labels:
+    app: hbs-scrapper
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hbs-scrapper
+      tier: service
+  template:
+    metadata:
+      labels:
+        app: hbs-scrapper
+        tier: service
+    spec:
+      containers:
+      - name: hbs-scrapper
+        image: hypertube/hbs-scrapper-service
+        imagePullPolicy: IfNotPresent

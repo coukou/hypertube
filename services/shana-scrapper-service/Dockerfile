@@ -1,6 +1,6 @@
 FROM node:alpine
 
-WORKDIR /usr/app/hbs-scrapper-service
+WORKDIR /usr/app/shana-scrapper-service
 
 COPY ./package.json .
 COPY ./package-lock.json .

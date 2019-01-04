@@ -14,5 +14,6 @@ kubectl apply -f <(istioctl kube-inject -f k8s/profile-svc/service.yaml)
 kubectl apply -f k8s/library-svc/envoy-filter.yaml
 kubectl apply -f k8s/library-svc/mongo.yaml
 kubectl apply -f <(istioctl kube-inject -f k8s/library-svc/service.yaml)
-
 kubectl apply -f <(istioctl kube-inject -f k8s/avatar-svc/service.yaml)
+
+docker run hypertube/streaming-service

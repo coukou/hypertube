@@ -1,9 +1,9 @@
 FROM node:alpine
 
 RUN apk update
-RUN apk add python g++ make 
+RUN apk add python g++ make ffmpeg
 
-WORKDIR /usr/app/avatar-service
+WORKDIR /usr/app/streaming-service
 
 COPY ./package.json .
 COPY ./package-lock.json .

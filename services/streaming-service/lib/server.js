@@ -15,7 +15,6 @@ const authService = require('./auth-service')
 const libraryService = require('./library-service')
 
 const app = express()
-const uploadDir = path.resolve(__dirname, '../uploads')
 
 app.use(cors())
 
@@ -58,16 +57,18 @@ app.use((req, res, next) => {
   }
 
 
+  console.log(anime, episode, quality)
   // we retrieve magnet link here from LibraryService
   libraryService.getAnimeTorrent({anime, episode, quality}, (err, data) => {
     if (err) return res.status(404).end()
 
     const engine = torrentStream(data.magnet);
 
+    engine.on('error', err => {
+      console.log(err)
+    })
     engine.on('ready', () => {
       engine.files.forEach(file => {
-        // TODO: Timeout engine
-
         if (!isVideo(file.name))
           return ;
 
@@ -159,6 +160,7 @@ app.get('/video', (req, res) => {
 })
 
 app.get('/info', (req, res) => {
+  console.log('info')
   res.json({downloaded: req.torrent.metadata.downloaded})
 })
 
