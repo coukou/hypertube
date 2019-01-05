@@ -3,6 +3,7 @@
     "field": {
       "missing": "est manquant",
       "invalid": "est invalide",
+      "doesnt_match": "le mot de passe ne correspond pas",
       "already-taken": "est déjà pris",
       "min-4": "doit avoir au moins 4 caractères",
       "max-16": "ne peut pas dépasser 16 caractères",
