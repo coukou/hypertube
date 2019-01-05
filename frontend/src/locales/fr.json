@@ -72,6 +72,15 @@
     "search": "rechercher",
     "clear_search": "effacer"
   },
+  "toast": {
+    "account-created": "Compte créé, veuillez vérifier votre e-mail",
+    "account-validated": "Le compte a été validé"
+  },
+  "sections": {
+    "comment_section": "section commentaires"
+  },
+  "currently_downloading":
+    "Nous sommes en train de télécharger votre anime sur notre serveur. Stream peut être instable.",
   "retrieving-oauth-info": "Récupération des informations OAuth ...",
   "back-to-login": "Cliquez ici pour revenir à la page de connexion",
   "username": "Nom d'utilisateur",
