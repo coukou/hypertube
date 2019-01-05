@@ -24,6 +24,7 @@
       "not_validated": "compte non validé"
     },
     "reset": {
+      "not_found": "il n'y a pas d'utilisateur avec ce nom d'utilisateur",
       "oauth_user": "réinitialisation non-autorisé"
     },
     "edit": {
