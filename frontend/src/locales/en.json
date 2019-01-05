@@ -3,10 +3,15 @@
     "field": {
       "missing": "is missing",
       "invalid": "is invalid",
+      "doesnt_match": "password doesnt match",
       "already-taken": "is already taken",
       "min-4": "must be atleast 4 chars long",
       "max-16": "can't exceed 16 chars long",
       "alphanum": "must be only alphanumerical"
+    },
+    "comment": {
+      "empty": "comment can't be empty",
+      "too_long": "comment is too long"
     },
     "profile": {
       "not_found": "Profile doesnt exists"
@@ -19,6 +24,7 @@
       "not_validated": "account not validated"
     },
     "reset": {
+      "not_found": "there is no user with that username",
       "oauth_user": "unauthorized reset"
     },
     "edit": {
@@ -57,16 +63,28 @@
     }
   },
   "button": {
+    "edit": "edit",
+    "upload": "upload",
     "reset-pass": "Reset password",
     "auth": "Authenticate",
     "lets-go": "Lets go! 🎠",
-    "create-account": "Create account"
+    "create-account": "Create account",
+    "search": "search",
+    "clear_search": "clear"
   },
+  "toast": {
+    "account-created": "Account created, please check your mail"
+  },
+  "sections": {
+    "comment_section": "comments section"
+  },
+  "currently_downloading":
+    "We are currently downloading your anime on our server. Stream may be unstable.",
   "retrieving-oauth-info": "Retrieving OAuth informations ...",
   "back-to-login": "Click here to return to login page",
   "username": "Username",
   "email": "Email",
-  "password-conf": "Confirm Password",
+  "password2": "Confirm Password",
   "password": "Password",
   "last-name": "Last name",
   "first-name": "First name",
