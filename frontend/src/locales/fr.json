@@ -63,6 +63,8 @@
     }
   },
   "button": {
+    "edit": "modifier",
+    "upload": "télécharger",
     "reset-pass": "Réinitialiser mot de passe",
     "auth": "Authentification",
     "lets-go": "on y va! 🎠",
