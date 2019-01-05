@@ -8,7 +8,9 @@
       @error="onError"
       @success="onSuccess"
       :url="uploadUrl"
-    ></n3-uploader>
+    >
+    <n3-button>{{ $t('button.upload') }}</n3-button>
+    </n3-uploader>
   </div>
 </template>
 
@@ -20,6 +22,7 @@ export default {
       const avatar = this.avatar;
       const [type, data] = avatar.split(/:(.+)/);
       if (type === "ext") return data;
+      if (data === undefined) return;
       return `http://192.168.99.100:31380/avatar/${data}`;
     },
     uploadUrl() {
@@ -32,9 +35,7 @@ export default {
     onSuccess(res) {
       this.$store.commit("setAvatar", res.response.avatar);
     },
-    onError(err) {
-      console.log("error!", err);
-    }
+    onError(err) {}
   }
 };
 </script>

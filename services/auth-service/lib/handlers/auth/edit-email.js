@@ -8,11 +8,11 @@ const RevokedToken = require('../../models/revoked-token')
 module.exports = async (call, cb) => {
   const data = call.request
   if (!data.email, !data.password)
-    return cb({code: grpc.status.INVALID_ARGUMENT, message: 'err.invalid_params'})
+    return cb({code: grpc.status.PERMISSION_DENIED, message: 'err.invalid_params'})
 
   // check if wanted email is not the current email
   if (data.email === data.jwt.email)
-    return cb({code: grpc.status.INVALID_ARGUMENT, message: 'seriously ??'})
+    return cb(null)
   
   // we retrieve user
   var [err, user] = await to(User.findOne({email: data.jwt.email}))
@@ -20,12 +20,12 @@ module.exports = async (call, cb) => {
  
   // here we check if user is not oauth user
   if (user.auth !== 'hypertube')
-    return cb({code: grpc.status.PERMISSION_DENIED, message: `you can't change email when account is created with oauth`})
+    return cb({code: grpc.status.PERMISSION_DENIED, message: `err.edit.oauth_user`})
  
   // we check if wanted email is already in use
   var [err, exists] = await to(User.findOne({email: data.email}))
   if (err) return cb({code: grpc.status.INTERNAL, message: 'unable to check if email is already in use'})
-  if (exists) return cb({code: grpc.status.INVALID_ARGUMENT, message: 'err.email_already_use'})
+  if (exists) return cb({code: grpc.status.PERMISSION_DENIED, message: 'err.email_already_use'})
 
   // we check if provided password match
   var [err, match] = await to(user.comparePassword(data.password))
@@ -35,7 +35,7 @@ module.exports = async (call, cb) => {
   // we validate wanted email
   var [err, body] = await to(mailgun.validate(data.email))
   if (err) return cb({code: grpc.status.INTERNAL, message: 'unable to check email validity'})
-  if (!body.is_valid) return cb({code: grpc.status.INVALID_ARGUMENT, message: 'err.email_invalid'})
+  if (!body.is_valid) return cb({code: grpc.status.PERMISSION_DENIED, message: 'err.email_invalid'})
 
   // we update user with the new email
   user.email = data.email

@@ -6,31 +6,15 @@
       <hr />
     </div>
     <n3-form class="omni-form" ref="form">
-      <n3-form-item :label-col="0" :form-col="12">
+      <n3-form-item v-for="(field, key) of model" :label-col="0" :form-col="12" :key="key">
         <n3-input
-          :placeholder="$t('username')"
-          v-model="model.username"
+          :placeholder="$t(key)"
+          v-model="model[key]"
+          :type="key.includes('password') ? 'password' : 'text'"
           ></n3-input>
-      </n3-form-item>
-      <n3-form-item :label-col="0" :form-col="12">
-        <n3-input
-          :placeholder="$t('email')"
-          v-model="model.email"
-          ></n3-input>
-      </n3-form-item>
-      <n3-form-item :label-col="0" :form-col="12">
-        <n3-input
-          type="password"
-          :placeholder="$t('password')"
-          v-model="model.password"
-          ></n3-input>
-      </n3-form-item>
-      <n3-form-item :label-col="0" :form-col="12">
-        <n3-input
-          type="password"
-          :placeholder="$t('password-conf')"
-          v-model="model.password2"
-          ></n3-input>
+        <div class="n3-err-tip" v-for="(error, i) of errors[key]" :key="i">
+          {{ $t(error) }}
+        </div>
       </n3-form-item>
       <n3-form-item :label-col="0" :form-col="12">
         <n3-button type="info" @click.native="submit" style="width: 220px;">{{$t('button.create-account')}}</n3-button>
@@ -51,12 +35,28 @@ export default {
         email: "",
         password: "",
         password2: ""
+      },
+      errors: {
+        username: [],
+        email: [],
+        password: [],
+        password2: []
       }
     };
   },
   methods: {
+    clearErrors() {
+      Object.keys(this.errors).forEach(k => {
+        this.errors[k] = [];
+      });
+    },
     submit() {
-      // TODO: FORM VALIDATION
+      this.clearErrors();
+      if (this.model.password !== this.model.password2) {
+        this.errors.password.push("err.field.doesnt_match");
+        this.errors.password2.push("err.field.doesnt_match");
+        return;
+      }
       this.$refs.form.validateFields(result => {
         AuthService.register({
           username: this.model.username,
@@ -72,11 +72,10 @@ export default {
             });
           })
           .catch(err => {
-            this.n3Toast({
-              text: this.$t(err.message),
-              type: "danger",
-              placement: "top",
-              closeOnClick: true
+            if (err.code !== 3) return;
+            const errors = JSON.parse(err.message);
+            errors.forEach(error => {
+              this.errors[error.field].push(error.message);
             });
           });
       });

@@ -10,7 +10,7 @@ const pkgDef = require('@grpc/proto-loader').loadSync(path.join(__dirname, '../.
   oneofs: true
 })
 
-const AuthService = grpc.loadPackageDefinition(pkgDef).hypertube.auth.InternalAuthService
+const AuthService = grpc.loadPackageDefinition(pkgDef).hypertube.auth.AuthService
 const authClient = new AuthService('auth-service:3000', grpc.credentials.createInsecure())
 
 module.exports = (next) => {

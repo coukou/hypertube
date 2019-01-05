@@ -86,7 +86,7 @@ module.exports = async (call, cb) => {
     var [err, token] = await to((new ActivationToken({user})).save())
     if (err) return cb({code: grpc.status.INTERNAL, message: `ActivationToken.save err: ${err}`})
 
-    var [err] = await to(mailgun.send(data.email, `Validation`, `validation link`))
+    var [err] = await to(mailgun.send(data.email, `Validation`, `http://localhost:8080/validate/${token.token}`))
     if (err) return cb({code: grpc.status.INTERNAL, message: `mailgun.send err: ${err}`})
   }
 

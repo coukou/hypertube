@@ -14,7 +14,7 @@
         ></n3-input>
     </n3-form-item>
     <n3-form-item :label-col="0" :form-col="12">
-      <n3-button type="info" @click.native="submit" style="width: 220px;">{{ submitLabel || 'edit' }}</n3-button>
+      <n3-button type="info" @click.native="submit" style="width: 220px;">{{ submitLabel || $t('button.edit') }}</n3-button>
     </n3-form-item>
   </n3-form>
 </template>
@@ -57,10 +57,7 @@ export default {
             );
             this.$emit("success", res);
           })
-          .catch(err => {
-            console.log(err);
-            // TODO: handle server validation error ?
-          });
+          .catch(err => {});
       });
     }
   }

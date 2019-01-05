@@ -26,8 +26,8 @@ export default {
   },
   methods: {
     fetchProfile(id) {
-      profileService
-        .profile(id)
+      this.$store
+        .dispatch("getProfile", id)
         .then(profile => {
           this.profile = profile.toObject();
         })

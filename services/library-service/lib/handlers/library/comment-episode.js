@@ -18,7 +18,7 @@ module.exports = async (call, cb) => {
 
   // we validate comment
   if (data.comment.trim().length === 0)
-    return cb({code: grps.status.INVALID_ARGUMENTS, message: 'err.comment.empty'})
+    return cb({code: grpc.status.INVALID_ARGUMENTS, message: 'err.comment.empty'})
 
   if (data.comment.length > 200)
     return cb({code: grpc.status.INVALID_ARGUMENTS, message: 'err.comment.too_long'})
@@ -27,8 +27,10 @@ module.exports = async (call, cb) => {
     anime: data.anime,
     episode: data.episode,
     author: data.jwt._id,
-    text: data.comment
+    text: data.comment,
+    date: Date.now()
   })
+  console.log(comment.date)
 
   var [err, com] = await to(comment.save())
   if (err) return cb({code: grpc.status.INTERNAL, message: 'err.comment.unable_to_save'})

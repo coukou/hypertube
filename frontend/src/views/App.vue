@@ -1,21 +1,13 @@
 <template>
   <div>
-    <n3-aside placement="left" title="Title" ref="menu">
-    </n3-aside>
     <div class="header">
       <div>
-        <n3-button @click.native="toggleMenu">
-          <n3-icon type="bars"></n3-icon>
-        </n3-button>
       </div>
       <div class="brand">
-        <router-link to="/app">Hypertube</router-link>
+        <router-link to="/app">MangaTube</router-link>
       </div>
       <div>
         <n3-button-group>
-          <n3-button>
-            <n3-icon type="search"></n3-icon>
-          </n3-button>
           <n3-button @click.native="$router.push('/app/account')">
             <n3-icon type="cog"></n3-icon>
           </n3-button>
@@ -28,17 +20,15 @@
     <div class="main">
       <router-view></router-view>
     </div>
+    <hr />
+    <div>
+      <center>copyright &copy; 2018 - MangaTube</center>
+    </div>
   </div>
 </template>
 
 <script>
-export default {
-  methods: {
-    toggleMenu() {
-      this.$refs.menu.open();
-    }
-  }
-};
+export default {};
 </script>
 
 <style scoped>

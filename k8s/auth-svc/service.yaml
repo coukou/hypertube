@@ -25,22 +25,9 @@ spec:
   gateways:
   - hypertube-gateway
   http:
-  # internal routes
-  #- match:
-    #- uri:
-        #prefix: /hypertube.auth.InternalAuthService
-      #gateways:
-      #- mesh
-    #route:
-    #- destination:
-        #host: auth-service
-        #port:
-          #number: 3000
-  # public routes
   - match:
     - uri:
-        #prefix: /hypertube.auth.AuthService
-        prefix: /hypertube.auth
+        prefix: /hypertube.auth.AuthService
     route:
     - destination:
         host: auth-service
@@ -100,7 +87,7 @@ spec:
         imagePullPolicy: IfNotPresent
         env:
         - name: AUTO_ACTIVATION
-          value: true
+          value: false
         ports:
         - name: grpc-port
           containerPort: 3000

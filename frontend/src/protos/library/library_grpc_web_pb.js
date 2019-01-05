@@ -132,6 +132,56 @@ proto.hypertube.library.LibraryServicePromiseClient.prototype.getAnime =
 /**
  * @const
  * @type {!grpc.web.AbstractClientBase.MethodInfo<
+ *   !proto.hypertube.library.AnimeSearchRequest,
+ *   !proto.hypertube.library.Anime>}
+ */
+const methodInfo_LibraryService_SearchAnime = new grpc.web.AbstractClientBase.MethodInfo(
+  proto.hypertube.library.Anime,
+  /** @param {!proto.hypertube.library.AnimeSearchRequest} request */
+  function(request) {
+    return request.serializeBinary();
+  },
+  proto.hypertube.library.Anime.deserializeBinary
+);
+
+
+/**
+ * @param {!proto.hypertube.library.AnimeSearchRequest} request The request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @return {!grpc.web.ClientReadableStream<!proto.hypertube.library.Anime>}
+ *     The XHR Node Readable Stream
+ */
+proto.hypertube.library.LibraryServiceClient.prototype.searchAnime =
+    function(request, metadata) {
+  return this.client_.serverStreaming(this.hostname_ +
+      '/hypertube.library.LibraryService/SearchAnime',
+      request,
+      metadata,
+      methodInfo_LibraryService_SearchAnime);
+};
+
+
+/**
+ * @param {!proto.hypertube.library.AnimeSearchRequest} request The request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @return {!grpc.web.ClientReadableStream<!proto.hypertube.library.Anime>}
+ *     The XHR Node Readable Stream
+ */
+proto.hypertube.library.LibraryServicePromiseClient.prototype.searchAnime =
+    function(request, metadata) {
+  return this.delegateClient_.client_.serverStreaming(this.delegateClient_.hostname_ +
+      '/hypertube.library.LibraryService/SearchAnime',
+      request,
+      metadata,
+      methodInfo_LibraryService_SearchAnime);
+};
+
+
+/**
+ * @const
+ * @type {!grpc.web.AbstractClientBase.MethodInfo<
  *   !proto.hypertube.library.AnimeListRequest,
  *   !proto.hypertube.library.Anime>}
  */
@@ -176,6 +226,62 @@ proto.hypertube.library.LibraryServicePromiseClient.prototype.animeList =
       request,
       metadata,
       methodInfo_LibraryService_AnimeList);
+};
+
+
+/**
+ * @const
+ * @type {!grpc.web.AbstractClientBase.MethodInfo<
+ *   !proto.hypertube.library.Empty,
+ *   !proto.hypertube.library.AnimeCountResponse>}
+ */
+const methodInfo_LibraryService_AnimeCount = new grpc.web.AbstractClientBase.MethodInfo(
+  proto.hypertube.library.AnimeCountResponse,
+  /** @param {!proto.hypertube.library.Empty} request */
+  function(request) {
+    return request.serializeBinary();
+  },
+  proto.hypertube.library.AnimeCountResponse.deserializeBinary
+);
+
+
+/**
+ * @param {!proto.hypertube.library.Empty} request The
+ *     request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @param {function(?grpc.web.Error, ?proto.hypertube.library.AnimeCountResponse)}
+ *     callback The callback function(error, response)
+ * @return {!grpc.web.ClientReadableStream<!proto.hypertube.library.AnimeCountResponse>|undefined}
+ *     The XHR Node Readable Stream
+ */
+proto.hypertube.library.LibraryServiceClient.prototype.animeCount =
+    function(request, metadata, callback) {
+  return this.client_.rpcCall(this.hostname_ +
+      '/hypertube.library.LibraryService/AnimeCount',
+      request,
+      metadata || {},
+      methodInfo_LibraryService_AnimeCount,
+      callback);
+};
+
+
+/**
+ * @param {!proto.hypertube.library.Empty} request The
+ *     request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @return {!Promise<!proto.hypertube.library.AnimeCountResponse>}
+ *     The XHR Node Readable Stream
+ */
+proto.hypertube.library.LibraryServicePromiseClient.prototype.animeCount =
+    function(request, metadata) {
+  return new Promise((resolve, reject) => {
+    this.delegateClient_.animeCount(
+      request, metadata, (error, response) => {
+        error ? reject(error) : resolve(response);
+      });
+  });
 };
 
 

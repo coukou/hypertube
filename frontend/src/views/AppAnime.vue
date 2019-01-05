@@ -11,7 +11,7 @@
     </div>
     <div>
       <h2>episodes</h2>
-      <div class="episode" v-for="episode of episodes" :key="episode.num">
+      <div class="episode" v-for="(episode, key) of episodes" :key="key">
         <span>episode {{ episode.num }}</span>
         <span class="quality" v-for="q of episode.qualitiesList" :key="q.quality">
           <n3-button @click.native="() => watch(anime.id, episode.num, q)">{{ q }}p</n3-button>
@@ -41,13 +41,13 @@ export default {
   },
   methods: {
     fetchAnime(id) {
-      LibraryService.getAnime(id).then(
-        anime => (this.anime = anime.toObject())
-      );
+      this.$store
+        .dispatch("getAnime", id)
+        .then(anime => (this.anime = anime.toObject()));
     },
     watch(animeId, episode, quality) {
       this.$router.push(`/app/anime/watch/${animeId}/${episode}/${quality}`);
-    }
+    },
   },
   computed: {
     episodes() {

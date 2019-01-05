@@ -46,11 +46,6 @@ message EditEmailRequest {
   string password = 2;
 }
 
-service InternalAuthService {
-  // Called by other microservice to check JWT token validity
-  rpc TokenIsValid(TokenValidRequest) returns (TokenValidResponse);
-}
-
 service AuthService { 
   rpc Register(RegisterRequest) returns (Empty);
   rpc Logout(Empty) returns (Empty);
@@ -65,4 +60,5 @@ service AuthService {
   // OAuth
   rpc Oauth42(OAuthRequest) returns (AuthResponse);
   rpc OauthGithub(OAuthRequest) returns (AuthResponse);
+  rpc TokenIsValid(TokenValidRequest) returns (TokenValidResponse);
 }

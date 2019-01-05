@@ -5,6 +5,7 @@ import cookies from "js-cookie";
 import router from "./router";
 
 import profileService from "./services/profile";
+import libraryService from "./services/library";
 //import authService from "./services/auth";
 
 Vue.use(Vuex);
@@ -17,6 +18,10 @@ function parseJWT(token) {
 
 function initialState() {
   return {
+    cache: {
+      profiles: {},
+      animes: {}
+    },
     accessToken: cookies.get("access-token"),
     restored: false,
     movies: {
@@ -51,7 +56,7 @@ export default new Vuex.Store({
       for (let k in profile) state.profile[k] = profile[k];
     },
     setAvatar: (state, avatar) => {
-      state.profile.avatar = avatar
+      state.profile.avatar = avatar;
     },
     logout: state => {
       cookies.remove("access-token");
@@ -82,11 +87,34 @@ export default new Vuex.Store({
     animes: state => {
       return state.movies.animes;
     },
+    profile: state => {
+      return state.profile;
+    },
     animeById: state => id => {
       return state.movies.animes.find(a => a.id === id);
     }
   },
   actions: {
+    getProfile: (store, id) => {
+      const cache = store.state.cache;
+      return new Promise((resolve, reject) => {
+        if (cache.profiles[id]) return resolve(cache.profiles[id]);
+        profileService.profile(id).then(profile => {
+          cache.profiles[id] = profile;
+          resolve(profile);
+        });
+      });
+    },
+    getAnime: (store, id) => {
+      const cache = store.state.cache;
+      return new Promise((resolve, reject) => {
+        if (cache.animes[id]) return resolve(cache.animes[id]);
+        libraryService.getAnime(id).then(anime => {
+          cache.animes[id] = anime;
+          resolve(anime);
+        });
+      });
+    },
     restore: store => {
       return new Promise(resolve => {
         if (store.state.restored) return resolve();

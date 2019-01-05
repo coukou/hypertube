@@ -22,6 +22,5 @@ const pkgDef = require('@grpc/proto-loader').loadSync(path.join(__dirname, '../p
 
 const pb = grpc.loadPackageDefinition(pkgDef).hypertube.auth
 server.addService(services.auth.service, services.auth.handlers)
-server.addService(services.internal.service, services.internal.handlers)
 server.bind('127.0.0.1:3000', grpc.ServerCredentials.createInsecure())
 server.start()

@@ -10,18 +10,53 @@ const torrentStream = require('torrent-stream');
 const mkdirp = require('mkdirp')
 const streamBuffers = require('stream-buffers')
 const isVideo = require('is-video')
+const low = require('lowdb')
+const FileSync = require('lowdb/adapters/FileSync')
+const rm = require('rimraf')
 
 const authService = require('./auth-service')
 const libraryService = require('./library-service')
 
 const app = express()
-
 app.use(cors())
+
+const adapter = new FileSync('db.json')
+const db = low(adapter)
+
+db.defaults({ movies: [] })
+  .write()
 
 const torrents = {}
 
 // we start garbage collector
-require('./garbage-collector')()
+//require('./garbage-collector')()
+
+function startMoviesCollector() {
+  setInterval(() => {
+    console.log('collecting inactive animes...')
+    const movies = db.get('movies').value()
+    movies.forEach(meta => {
+      const diff = Date.now() - meta.readedAt
+
+      const days = Math.ceil(diff / (1000 * 60 * 60 * 24))
+
+      // don't collect animes under 31 days
+      if (Number.isInteger(days) && days <= 31) return ;
+
+      // DELETE!
+      rm(meta.dir, err => {
+        if (err) return console.log(`unable to delete ${meta.dir}`)
+
+        // remove from db
+        db.get('movies').remove({ id: meta.id }).write()
+        // remove from memory
+        torrents[meta.id] = undefined
+
+        console.log(`${meta.dir} deleted`)
+      })
+    })
+  }, 10000)
+}
 
 function createTranscoder(rs) {
   return ffmpeg(rs)
@@ -36,11 +71,23 @@ function createTranscoder(rs) {
     ])
 }
 
-function saveMetadata(metadata, cb) {
-  fs.writeFile(metadata.metaFilename, JSON.stringify(metadata), (err) => {
-    cb(err)
-  })
+function saveMetadata(metadata) {
+  db.get('movies')
+    .find({id: metadata.id})
+    .assign(metadata)
+    .write()
 }
+
+// AuthGuard
+app.use((req, res, next) => {
+  const token = req.query.at
+  if (!token) return res.stauts(403).end()
+  authService.tokenIsValid({token}, (err, res) => {
+    if (err) return res.stauts(403).end()
+    if (!res.valid) return res.status(403).end()
+    next()
+  })
+})
 
 app.use((req, res, next) => {
   const { anime, episode, quality } = req.query
@@ -51,50 +98,50 @@ app.use((req, res, next) => {
     req.torrent = torrents[id]
     // since we should remove file after 1 month of inactivity
     // we should update the last read timestamp for our garbage collector
-    req.torrent.metadata.readed_at = Date.now()
-    saveMetadata(req.torrent.metadata, () => {})
+    db.get('movies')
+      .find({id})
+      .assign({readedAt: Date.now()})
+      .write()
+
     return next()
   }
 
 
-  console.log(anime, episode, quality)
   // we retrieve magnet link here from LibraryService
   libraryService.getAnimeTorrent({anime, episode, quality}, (err, data) => {
     if (err) return res.status(404).end()
 
     const engine = torrentStream(data.magnet);
 
-    engine.on('error', err => {
-      console.log(err)
-    })
     engine.on('ready', () => {
       engine.files.forEach(file => {
         if (!isVideo(file.name))
           return ;
 
-        file.metadata = {
-          id, anime, episode, quality, dir,
-          outFilename: path.resolve(dir, 'video.webm'),
-          subFilename: path.resolve(dir, 'sub.vtt'),
-          metaFilename: path.resolve(dir, '.metadata'),
-          downloaded: false,
-          started: false
+        const meta = db.get('movies')
+          .find({id})
+          .value()
+
+        if (meta) {
+          file.metadata = meta
+        } else {
+          file.metadata = {
+            id, anime, episode, quality, dir,
+            outFilename: path.resolve(dir, 'video.webm'),
+            downloaded: false,
+            started: false,
+            readedAt: Date.now()
+          }
+          db.get('movies').push(file.metadata).write()
         }
+
 
         torrents[id] = file
         req.torrent = torrents[id]
         
         mkdirp(file.metadata.dir, function (err) {
           if (err) return res.status(500).end('unable to create episode dir')
-          fs.access(file.metadata.metaFilename, fs.constants.F_OK, (err) => { 
-
-            // if .metadata file exists we restore it
-            if (!err) {
-              file.metadata = JSON.parse(fs.readFileSync(file.metadata.metaFilename))
-            }
-
-            next() 
-          })
+          next() 
         })
       });
     });
@@ -114,11 +161,12 @@ app.get('/video', (req, res) => {
         console.log('Downloaded', req.torrent.metadata.id)
         req.torrent.metadata.downloaded = true
         req.torrent.metadata.started = false
-        saveMetadata(req.torrent.metadata, err => {
-          if (err) console.log('unable to save metadata RIP')
-        })
+        
+        // we update movie metadata
+        saveMetadata(req.torrent.metadata)
       })
       .save(req.torrent.metadata.outFilename)
+      saveMetadata(req.torrent.metadata)
   }
   if (!req.torrent.metadata.downloaded) {
     return createTranscoder(req.torrent.createReadStream({start: 0}))
@@ -160,7 +208,6 @@ app.get('/video', (req, res) => {
 })
 
 app.get('/info', (req, res) => {
-  console.log('info')
   res.json({downloaded: req.torrent.metadata.downloaded})
 })
 
@@ -184,9 +231,12 @@ app.get('/sub', (req, res) => {
   const buffer = new streamBuffers.WritableStreamBuffer()
   cmd.on('end', () => {
     req.torrent.metadata.sub = buffer.getContentsAsString('utf8')
-    saveMetadata(req.torrent.metadata, () => {})
+    saveMetadata(req.torrent.metadata)
     return res.end(req.torrent.metadata.sub)
   }).pipe(buffer)
 })
 
-app.listen(3000)
+app.listen(3000, () => {
+  startMoviesCollector()
+  console.log('streaming server listenin on :3000')
+})

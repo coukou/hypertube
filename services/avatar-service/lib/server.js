@@ -11,7 +11,6 @@ const profileService = require('./profile-service')
 const app = express()
 const uploadDir = path.resolve(__dirname, '../uploads')
 
-
 app.post('/avatar', (req, res) => {
   let avatar = undefined
   const token = req.query.at
@@ -29,6 +28,9 @@ app.post('/avatar', (req, res) => {
         file.name = uuid()
         file.path = path.resolve(uploadDir, file.name)
         avatar = `ht:${file.name}`
+      })
+      .on('error', () => {
+        res.status(500).end()
       })
       .on('end', () => {
         const id = jwtDecode(token)._id

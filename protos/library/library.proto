@@ -46,6 +46,10 @@ message Anime {
   repeated Episode episodes = 5;
 }
 
+message AnimeSearchRequest {
+  string name = 1;
+}
+
 message AnimeListRequest {
   uint64 offset = 1;
   uint64 limit = 2;
@@ -74,6 +78,7 @@ message CommentRequest {
 message Comment {
   string author = 1;
   string text = 2;
+  uint64 date = 3;
 }
 
 message CommentListRequest {
@@ -81,15 +86,21 @@ message CommentListRequest {
   string episode = 2;
 }
 
+message AnimeCountResponse {
+  uint64 count = 1;
+}
+
 service LibraryService {
   rpc GetAnime(AnimeRequest) returns (Anime);
+  rpc SearchAnime(AnimeSearchRequest) returns (stream Anime);
   rpc AnimeList(AnimeListRequest) returns (stream Anime);
+  rpc AnimeCount(Empty) returns (AnimeCountResponse);
   rpc CommentEpisode(CommentRequest) returns (Comment);
   rpc CommentList(CommentListRequest) returns (stream Comment);
+  rpc GetAnimeTorrent(GetTorrentRequest) returns (GetTorrentResponse);
 }
 
 service InternalLibraryService {
   rpc AddAnime(AnimeAddRequest) returns (AnimeAddResponse);
   rpc AddAnimeEpisode(AnimeAddEpisodeRequest) returns (Empty);
-  rpc GetAnimeTorrent(GetTorrentRequest) returns (GetTorrentResponse);
 }

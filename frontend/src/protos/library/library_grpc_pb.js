@@ -48,6 +48,17 @@ function deserialize_hypertube_library_AnimeAddResponse(buffer_arg) {
   return library_library_pb.AnimeAddResponse.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
+function serialize_hypertube_library_AnimeCountResponse(arg) {
+  if (!(arg instanceof library_library_pb.AnimeCountResponse)) {
+    throw new Error('Expected argument of type hypertube.library.AnimeCountResponse');
+  }
+  return new Buffer(arg.serializeBinary());
+}
+
+function deserialize_hypertube_library_AnimeCountResponse(buffer_arg) {
+  return library_library_pb.AnimeCountResponse.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
 function serialize_hypertube_library_AnimeListRequest(arg) {
   if (!(arg instanceof library_library_pb.AnimeListRequest)) {
     throw new Error('Expected argument of type hypertube.library.AnimeListRequest');
@@ -68,6 +79,17 @@ function serialize_hypertube_library_AnimeRequest(arg) {
 
 function deserialize_hypertube_library_AnimeRequest(buffer_arg) {
   return library_library_pb.AnimeRequest.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_hypertube_library_AnimeSearchRequest(arg) {
+  if (!(arg instanceof library_library_pb.AnimeSearchRequest)) {
+    throw new Error('Expected argument of type hypertube.library.AnimeSearchRequest');
+  }
+  return new Buffer(arg.serializeBinary());
+}
+
+function deserialize_hypertube_library_AnimeSearchRequest(buffer_arg) {
+  return library_library_pb.AnimeSearchRequest.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
 function serialize_hypertube_library_Comment(arg) {
@@ -149,6 +171,17 @@ var LibraryServiceService = exports.LibraryServiceService = {
     responseSerialize: serialize_hypertube_library_Anime,
     responseDeserialize: deserialize_hypertube_library_Anime,
   },
+  searchAnime: {
+    path: '/hypertube.library.LibraryService/SearchAnime',
+    requestStream: false,
+    responseStream: true,
+    requestType: library_library_pb.AnimeSearchRequest,
+    responseType: library_library_pb.Anime,
+    requestSerialize: serialize_hypertube_library_AnimeSearchRequest,
+    requestDeserialize: deserialize_hypertube_library_AnimeSearchRequest,
+    responseSerialize: serialize_hypertube_library_Anime,
+    responseDeserialize: deserialize_hypertube_library_Anime,
+  },
   animeList: {
     path: '/hypertube.library.LibraryService/AnimeList',
     requestStream: false,
@@ -159,6 +192,17 @@ var LibraryServiceService = exports.LibraryServiceService = {
     requestDeserialize: deserialize_hypertube_library_AnimeListRequest,
     responseSerialize: serialize_hypertube_library_Anime,
     responseDeserialize: deserialize_hypertube_library_Anime,
+  },
+  animeCount: {
+    path: '/hypertube.library.LibraryService/AnimeCount',
+    requestStream: false,
+    responseStream: false,
+    requestType: library_library_pb.Empty,
+    responseType: library_library_pb.AnimeCountResponse,
+    requestSerialize: serialize_hypertube_library_Empty,
+    requestDeserialize: deserialize_hypertube_library_Empty,
+    responseSerialize: serialize_hypertube_library_AnimeCountResponse,
+    responseDeserialize: deserialize_hypertube_library_AnimeCountResponse,
   },
   commentEpisode: {
     path: '/hypertube.library.LibraryService/CommentEpisode',

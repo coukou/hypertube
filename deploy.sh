@@ -16,4 +16,4 @@ kubectl apply -f k8s/library-svc/mongo.yaml
 kubectl apply -f <(istioctl kube-inject -f k8s/library-svc/service.yaml)
 kubectl apply -f <(istioctl kube-inject -f k8s/avatar-svc/service.yaml)
 
-docker run hypertube/streaming-service
+#docker run -d -p 3000:3000 hypertube/streaming-service

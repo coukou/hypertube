@@ -19,6 +19,8 @@ const unaryCall = (method, metadata, req) => {
     method(req, metadata, (err, data) => {
       if (!err) return resolve(data);
       if (err.code === 3) return console.log(err); // TODO: server validation errors
+      // error 7 is permission denied
+      if (err.code === 7) return store.commit("logout");
       reject(err);
     });
   });
@@ -33,11 +35,26 @@ export default {
       cb(anime.toObject());
     });
   },
+  searchAnime(name, cb) {
+    const req = new pb.AnimeSearchRequest();
+    req.setName(name);
+    libraryClient.searchAnime(req, createMetadata()).on("data", anime => {
+      cb(anime.toObject());
+    });
+  },
   getAnime(id) {
     const req = new pb.AnimeRequest();
     req.setId(id);
     return unaryCall(
       libraryClient.getAnime.bind(libraryClient),
+      createMetadata(),
+      req
+    );
+  },
+  animeCount() {
+    const req = new pb.Empty();
+    return unaryCall(
+      libraryClient.animeCount.bind(libraryClient),
       createMetadata(),
       req
     );

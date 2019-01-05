@@ -2,7 +2,7 @@
   <div class="main">
     <div class="header">
       <h1>
-        HyperTube
+        MangaTube
       </h1>
       <hr />
     </div>
@@ -92,7 +92,7 @@ export default {
         authService.auth(request, {}, (err, response) => {
           if (err) {
             return this.n3Toast({
-              text: err.message,
+              text: this.$t(err.message),
               type: "danger",
               placement: "top",
               closeOnClick: true

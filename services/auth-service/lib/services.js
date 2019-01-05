@@ -24,13 +24,8 @@ module.exports = {
       editEmail: authGuard(require('./handlers/auth/edit-email')),
       auth: require('./handlers/auth/auth'),
       oauth42: require('./handlers/auth/oauth-42'),
-      oauthGithub: require('./handlers/auth/oauth-github')
-    }
-  },
-  internal: {
-    service: pb.InternalAuthService.service,
-    handlers: {
-      tokenIsValid: require('./handlers/internal/token-is-valid')
+      oauthGithub: require('./handlers/auth/oauth-github'),
+      tokenIsValid: require('./handlers/auth/token-is-valid')
     }
   }
 }

@@ -50,7 +50,7 @@ export default {
         authService.reset(request, {}, err => {
           if (err) {
             return this.n3Toast({
-              text: err.message,
+              text: this.$t(err.message),
               type: "danger",
               placement: "top",
               closeOnClick: true

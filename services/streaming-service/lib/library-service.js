@@ -10,5 +10,5 @@ const pkgDef = require('@grpc/proto-loader').loadSync(path.join(__dirname, '../p
   oneofs: true
 })
 
-const LibraryService = grpc.loadPackageDefinition(pkgDef).hypertube.library.InternalLibraryService
+const LibraryService = grpc.loadPackageDefinition(pkgDef).hypertube.library.LibraryService
 module.exports = new LibraryService('192.168.99.100:31380', grpc.credentials.createInsecure())

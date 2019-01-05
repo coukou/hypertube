@@ -8,8 +8,8 @@ module.exports = async (call, cb) => {
   // we retrieve user with given username
   var [err, user] = await to(User.findOne({username: call.request.username}))
   if (err) return cb({code: grpc.status.INTERNAL, message: `User.findOne err: ${err}`})
-  if (!user) return cb(null)
-  if (user.auth !== 'hypertube') return cb({code: grpc.status.INVALID_ARGUMENT, message: `err.`})
+  if (!user) return cb({code: grpc.status.INVALID_ARGUMENT, message: 'err.reset.not_found'})
+  if (user.auth !== 'hypertube') return cb({code: grpc.status.INVALID_ARGUMENT, message: `err.reset.oauth_user`})
 
   // we change password here
   const password = [...Array(32)].map(i=>(~~(Math.random()*36)).toString(36)).join('')

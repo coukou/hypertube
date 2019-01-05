@@ -8,7 +8,7 @@ module.exports = async (call, cb) => {
   const _id = call.request.id
   if (!_id || !mongoose.Types.ObjectId.isValid(_id))
     return cb({code: grpc.status.INVALID_ARGUMENT, message: 'err.invalid_params'})
-  var [err, profile] = await to(Profile.findOne({_id}))
+  var [err, profile] = await to(Profile.findOne({uid: _id}))
   if (err)
     return cb({code: grpc.status.INTERNAL, message: `unable to retrieve profile: ${err}`})
   if (!profile)

@@ -1,3 +1,5 @@
 > 1%
+firefox >= 41
+chrome >= 46
 last 2 versions
 not ie <= 8

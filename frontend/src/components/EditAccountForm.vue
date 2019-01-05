@@ -16,7 +16,7 @@
       </div>
     </n3-modal>
     <n3-form-item :label-col="0" :form-col="12">
-      <n3-button type="info" @click.native="passConfirm" style="width: 220px;">{{ submitLabel || 'edit' }}</n3-button>
+      <n3-button type="info" @click.native="passConfirm" style="width: 220px;">{{ submitLabel || $t('button.edit') }}</n3-button>
     </n3-form-item>
   </n3-form>
 </template>
@@ -46,8 +46,13 @@ export default {
           this.$store.commit("logout");
         })
         .catch(err => {
-          console.log(err);
-          // TODO: handle server validation error ?
+          if (err.code !== 3) return;
+          this.n3Toast({
+            text: this.$t(err.message),
+            type: "danger",
+            placement: "top",
+            closeOnClick: true
+          });
         });
     }
   }

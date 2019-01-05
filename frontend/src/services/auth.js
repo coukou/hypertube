@@ -18,7 +18,6 @@ const unaryCall = (method, metadata, req) => {
   return new Promise((resolve, reject) => {
     method(req, metadata, (err, data) => {
       if (!err) return resolve(data);
-      if (err.code === 3) return console.log(err); // TODO: server validation errors
       reject(err);
     });
   });

@@ -5,6 +5,7 @@ const schema = new mongoose.Schema({
   episode: { type: String },
   author: { type: String },
   text: { type: String },
+  date: { type: Number }
 })
 
 module.exports = mongoose.model('comment', schema)
