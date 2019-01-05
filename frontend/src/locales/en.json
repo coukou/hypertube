@@ -73,7 +73,8 @@
     "clear_search": "clear"
   },
   "toast": {
-    "account-created": "Account created, please check your mail"
+    "account-created": "Account created, please check your mail",
+    "account-validated": "Account has been validated"
   },
   "sections": {
     "comment_section": "comments section"
