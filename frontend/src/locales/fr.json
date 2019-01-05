@@ -66,7 +66,9 @@
     "reset-pass": "Réinitialiser mot de passe",
     "auth": "Authentification",
     "lets-go": "on y va! 🎠",
-    "create-account": "Créer un compte"
+    "create-account": "Créer un compte",
+    "search": "rechercher",
+    "clear_search": "effacer"
   },
   "retrieving-oauth-info": "Récupération des informations OAuth ...",
   "back-to-login": "Cliquez ici pour revenir à la page de connexion",
