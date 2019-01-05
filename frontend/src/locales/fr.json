@@ -28,7 +28,8 @@
       "oauth_user": "réinitialisation non-autorisé"
     },
     "edit": {
-      "change_email_oauth": "changement d'email impossible"
+      "change_email_oauth": "changement d'email impossible",
+      "no_change": "il n'y a rien a modifier"
     },
     "internal": {
       "unable_to_revoke_token": "échec lors du bannissement de votre jeton"
@@ -59,7 +60,8 @@
     },
     "forgotten": {
       "title": "Vraiment ??? 😱",
-      "desc": "Ne paniquez pas! Prenez un ☕️. Nous vous enverrons un nouveau mot de passe"
+      "desc":
+        "Ne paniquez pas! Prenez un ☕️. Nous vous enverrons un nouveau mot de passe"
     }
   },
   "button": {
@@ -78,6 +80,9 @@
   },
   "sections": {
     "comment_section": "section commentaires"
+  },
+  "placeholder": {
+    "comment": "Ecriver votre commentaire ici..."
   },
   "currently_downloading":
     "Nous sommes en train de télécharger votre anime sur notre serveur. Stream peut être instable.",

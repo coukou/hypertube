@@ -392,6 +392,62 @@ proto.hypertube.library.LibraryServicePromiseClient.prototype.commentList =
 
 
 /**
+ * @const
+ * @type {!grpc.web.AbstractClientBase.MethodInfo<
+ *   !proto.hypertube.library.GetTorrentRequest,
+ *   !proto.hypertube.library.GetTorrentResponse>}
+ */
+const methodInfo_LibraryService_GetAnimeTorrent = new grpc.web.AbstractClientBase.MethodInfo(
+  proto.hypertube.library.GetTorrentResponse,
+  /** @param {!proto.hypertube.library.GetTorrentRequest} request */
+  function(request) {
+    return request.serializeBinary();
+  },
+  proto.hypertube.library.GetTorrentResponse.deserializeBinary
+);
+
+
+/**
+ * @param {!proto.hypertube.library.GetTorrentRequest} request The
+ *     request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @param {function(?grpc.web.Error, ?proto.hypertube.library.GetTorrentResponse)}
+ *     callback The callback function(error, response)
+ * @return {!grpc.web.ClientReadableStream<!proto.hypertube.library.GetTorrentResponse>|undefined}
+ *     The XHR Node Readable Stream
+ */
+proto.hypertube.library.LibraryServiceClient.prototype.getAnimeTorrent =
+    function(request, metadata, callback) {
+  return this.client_.rpcCall(this.hostname_ +
+      '/hypertube.library.LibraryService/GetAnimeTorrent',
+      request,
+      metadata || {},
+      methodInfo_LibraryService_GetAnimeTorrent,
+      callback);
+};
+
+
+/**
+ * @param {!proto.hypertube.library.GetTorrentRequest} request The
+ *     request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @return {!Promise<!proto.hypertube.library.GetTorrentResponse>}
+ *     The XHR Node Readable Stream
+ */
+proto.hypertube.library.LibraryServicePromiseClient.prototype.getAnimeTorrent =
+    function(request, metadata) {
+  return new Promise((resolve, reject) => {
+    this.delegateClient_.getAnimeTorrent(
+      request, metadata, (error, response) => {
+        error ? reject(error) : resolve(response);
+      });
+  });
+};
+
+
+/**
  * @param {string} hostname
  * @param {?Object} credentials
  * @param {?Object} options
@@ -554,62 +610,6 @@ proto.hypertube.library.InternalLibraryServicePromiseClient.prototype.addAnimeEp
     function(request, metadata) {
   return new Promise((resolve, reject) => {
     this.delegateClient_.addAnimeEpisode(
-      request, metadata, (error, response) => {
-        error ? reject(error) : resolve(response);
-      });
-  });
-};
-
-
-/**
- * @const
- * @type {!grpc.web.AbstractClientBase.MethodInfo<
- *   !proto.hypertube.library.GetTorrentRequest,
- *   !proto.hypertube.library.GetTorrentResponse>}
- */
-const methodInfo_InternalLibraryService_GetAnimeTorrent = new grpc.web.AbstractClientBase.MethodInfo(
-  proto.hypertube.library.GetTorrentResponse,
-  /** @param {!proto.hypertube.library.GetTorrentRequest} request */
-  function(request) {
-    return request.serializeBinary();
-  },
-  proto.hypertube.library.GetTorrentResponse.deserializeBinary
-);
-
-
-/**
- * @param {!proto.hypertube.library.GetTorrentRequest} request The
- *     request proto
- * @param {?Object<string, string>} metadata User defined
- *     call metadata
- * @param {function(?grpc.web.Error, ?proto.hypertube.library.GetTorrentResponse)}
- *     callback The callback function(error, response)
- * @return {!grpc.web.ClientReadableStream<!proto.hypertube.library.GetTorrentResponse>|undefined}
- *     The XHR Node Readable Stream
- */
-proto.hypertube.library.InternalLibraryServiceClient.prototype.getAnimeTorrent =
-    function(request, metadata, callback) {
-  return this.client_.rpcCall(this.hostname_ +
-      '/hypertube.library.InternalLibraryService/GetAnimeTorrent',
-      request,
-      metadata || {},
-      methodInfo_InternalLibraryService_GetAnimeTorrent,
-      callback);
-};
-
-
-/**
- * @param {!proto.hypertube.library.GetTorrentRequest} request The
- *     request proto
- * @param {?Object<string, string>} metadata User defined
- *     call metadata
- * @return {!Promise<!proto.hypertube.library.GetTorrentResponse>}
- *     The XHR Node Readable Stream
- */
-proto.hypertube.library.InternalLibraryServicePromiseClient.prototype.getAnimeTorrent =
-    function(request, metadata) {
-  return new Promise((resolve, reject) => {
-    this.delegateClient_.getAnimeTorrent(
       request, metadata, (error, response) => {
         error ? reject(error) : resolve(response);
       });

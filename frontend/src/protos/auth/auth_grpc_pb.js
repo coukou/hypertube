@@ -48,6 +48,17 @@ function deserialize_hypertube_auth_EditEmailRequest(buffer_arg) {
   return auth_auth_pb.EditEmailRequest.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
+function serialize_hypertube_auth_EditPasswordRequest(arg) {
+  if (!(arg instanceof auth_auth_pb.EditPasswordRequest)) {
+    throw new Error('Expected argument of type hypertube.auth.EditPasswordRequest');
+  }
+  return new Buffer(arg.serializeBinary());
+}
+
+function deserialize_hypertube_auth_EditPasswordRequest(buffer_arg) {
+  return auth_auth_pb.EditPasswordRequest.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
 function serialize_hypertube_auth_Empty(arg) {
   if (!(arg instanceof auth_auth_pb.Empty)) {
     throw new Error('Expected argument of type hypertube.auth.Empty');
@@ -115,22 +126,6 @@ function deserialize_hypertube_auth_TokenValidResponse(buffer_arg) {
 }
 
 
-var InternalAuthServiceService = exports.InternalAuthServiceService = {
-  // Called by other microservice to check JWT token validity
-  tokenIsValid: {
-    path: '/hypertube.auth.InternalAuthService/TokenIsValid',
-    requestStream: false,
-    responseStream: false,
-    requestType: auth_auth_pb.TokenValidRequest,
-    responseType: auth_auth_pb.TokenValidResponse,
-    requestSerialize: serialize_hypertube_auth_TokenValidRequest,
-    requestDeserialize: deserialize_hypertube_auth_TokenValidRequest,
-    responseSerialize: serialize_hypertube_auth_TokenValidResponse,
-    responseDeserialize: deserialize_hypertube_auth_TokenValidResponse,
-  },
-};
-
-exports.InternalAuthServiceClient = grpc.makeGenericClientConstructor(InternalAuthServiceService);
 var AuthServiceService = exports.AuthServiceService = {
   register: {
     path: '/hypertube.auth.AuthService/Register',
@@ -187,6 +182,17 @@ var AuthServiceService = exports.AuthServiceService = {
     responseSerialize: serialize_hypertube_auth_Empty,
     responseDeserialize: deserialize_hypertube_auth_Empty,
   },
+  editPassword: {
+    path: '/hypertube.auth.AuthService/EditPassword',
+    requestStream: false,
+    responseStream: false,
+    requestType: auth_auth_pb.EditPasswordRequest,
+    responseType: auth_auth_pb.Empty,
+    requestSerialize: serialize_hypertube_auth_EditPasswordRequest,
+    requestDeserialize: deserialize_hypertube_auth_EditPasswordRequest,
+    responseSerialize: serialize_hypertube_auth_Empty,
+    responseDeserialize: deserialize_hypertube_auth_Empty,
+  },
   // this is legacy auth
   auth: {
     path: '/hypertube.auth.AuthService/Auth',
@@ -221,6 +227,17 @@ var AuthServiceService = exports.AuthServiceService = {
     requestDeserialize: deserialize_hypertube_auth_OAuthRequest,
     responseSerialize: serialize_hypertube_auth_AuthResponse,
     responseDeserialize: deserialize_hypertube_auth_AuthResponse,
+  },
+  tokenIsValid: {
+    path: '/hypertube.auth.AuthService/TokenIsValid',
+    requestStream: false,
+    responseStream: false,
+    requestType: auth_auth_pb.TokenValidRequest,
+    responseType: auth_auth_pb.TokenValidResponse,
+    requestSerialize: serialize_hypertube_auth_TokenValidRequest,
+    requestDeserialize: deserialize_hypertube_auth_TokenValidRequest,
+    responseSerialize: serialize_hypertube_auth_TokenValidResponse,
+    responseDeserialize: deserialize_hypertube_auth_TokenValidResponse,
   },
 };
 

@@ -22,6 +22,7 @@ module.exports = {
       reset: require('./handlers/auth/reset'),
       activate: require('./handlers/auth/activate'),
       editEmail: authGuard(require('./handlers/auth/edit-email')),
+      editPassword: authGuard(require('./handlers/auth/edit-password')),
       auth: require('./handlers/auth/auth'),
       oauth42: require('./handlers/auth/oauth-42'),
       oauthGithub: require('./handlers/auth/oauth-github'),

@@ -4,7 +4,7 @@ const api = require('./api')
 const library = require('./library-service')
 
 const QUEUE_OPTS = {
-  concurrent: 100,
+  concurrent: 10,
   afterProcessDelay: 100,
 }
 

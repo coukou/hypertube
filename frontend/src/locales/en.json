@@ -28,7 +28,8 @@
       "oauth_user": "unauthorized reset"
     },
     "edit": {
-      "change_email_oauth": "change email is not permitted"
+      "change_email_oauth": "change email is not permitted",
+      "no_change": "there is nothing to change"
     },
     "internal": {
       "unable_to_revoke_token": "failure to ban your token"
@@ -78,6 +79,9 @@
   },
   "sections": {
     "comment_section": "comments section"
+  },
+  "placeholder": {
+    "comment": "Type your comment here..."
   },
   "currently_downloading":
     "We are currently downloading your anime on our server. Stream may be unstable.",

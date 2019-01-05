@@ -226,6 +226,17 @@ var LibraryServiceService = exports.LibraryServiceService = {
     responseSerialize: serialize_hypertube_library_Comment,
     responseDeserialize: deserialize_hypertube_library_Comment,
   },
+  getAnimeTorrent: {
+    path: '/hypertube.library.LibraryService/GetAnimeTorrent',
+    requestStream: false,
+    responseStream: false,
+    requestType: library_library_pb.GetTorrentRequest,
+    responseType: library_library_pb.GetTorrentResponse,
+    requestSerialize: serialize_hypertube_library_GetTorrentRequest,
+    requestDeserialize: deserialize_hypertube_library_GetTorrentRequest,
+    responseSerialize: serialize_hypertube_library_GetTorrentResponse,
+    responseDeserialize: deserialize_hypertube_library_GetTorrentResponse,
+  },
 };
 
 exports.LibraryServiceClient = grpc.makeGenericClientConstructor(LibraryServiceService);
@@ -251,17 +262,6 @@ var InternalLibraryServiceService = exports.InternalLibraryServiceService = {
     requestDeserialize: deserialize_hypertube_library_AnimeAddEpisodeRequest,
     responseSerialize: serialize_hypertube_library_Empty,
     responseDeserialize: deserialize_hypertube_library_Empty,
-  },
-  getAnimeTorrent: {
-    path: '/hypertube.library.InternalLibraryService/GetAnimeTorrent',
-    requestStream: false,
-    responseStream: false,
-    requestType: library_library_pb.GetTorrentRequest,
-    responseType: library_library_pb.GetTorrentResponse,
-    requestSerialize: serialize_hypertube_library_GetTorrentRequest,
-    requestDeserialize: deserialize_hypertube_library_GetTorrentRequest,
-    responseSerialize: serialize_hypertube_library_GetTorrentResponse,
-    responseDeserialize: deserialize_hypertube_library_GetTorrentResponse,
   },
 };
 

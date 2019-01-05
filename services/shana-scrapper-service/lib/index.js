@@ -6,7 +6,7 @@ const library = require('./library-service')
 const cache = {}
 
 const QUEUE_OPTS = {
-  concurent: 100,
+  concurent: 10,
   afterProcessDelay: 100
 }
 

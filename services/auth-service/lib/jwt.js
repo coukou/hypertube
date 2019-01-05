@@ -19,7 +19,7 @@ module.exports.sign = (user) => {
       _id: user._id,
       username: user.username,
       email: user.email,
-      exp: Math.floor(Date.now() / 1000) + (60 * 60),
+      exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24),
       iat: Math.floor(Date.now() / 1000) 
     }
     jwt.sign(payload, 'passphrase', (err, token) => {

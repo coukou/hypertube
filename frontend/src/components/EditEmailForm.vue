@@ -46,7 +46,7 @@ export default {
           this.$store.commit("logout");
         })
         .catch(err => {
-          if (err.code !== 3) return;
+          if (err.code !== 7) return;
           this.n3Toast({
             text: this.$t(err.message),
             type: "danger",

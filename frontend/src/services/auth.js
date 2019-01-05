@@ -37,6 +37,16 @@ export default {
     req.setEmail(email);
     return unaryCall(authClient.register.bind(authClient), {}, req);
   },
+  editPassword({ password, password2 }) {
+    const req = new pb.EditPasswordRequest();
+    req.setPassword(password);
+    req.setPassword2(password2);
+    return unaryCall(
+      authClient.editPassword.bind(authClient),
+      createMetadata(),
+      req
+    );
+  },
   editEmail({ email, password }) {
     const req = new pb.EditEmailRequest();
     req.setEmail(email);

@@ -46,6 +46,11 @@ message EditEmailRequest {
   string password = 2;
 }
 
+message EditPasswordRequest {
+  string password = 1;
+  string password2 = 2;
+}
+
 service AuthService { 
   rpc Register(RegisterRequest) returns (Empty);
   rpc Logout(Empty) returns (Empty);
@@ -53,6 +58,7 @@ service AuthService {
   rpc Activate(ActivateRequest) returns (Empty);
 
   rpc EditEmail(EditEmailRequest) returns (Empty);
+  rpc EditPassword(EditPasswordRequest) returns (Empty);
 
   // this is legacy auth
   rpc Auth(AuthRequest) returns (AuthResponse);
